@@ -48,6 +48,7 @@
     var username = $("#username").val();
     var password = $("#password").val();
 
+    
     $.ajax({
         url: "<?php echo base_url(); ?>loginValid",
         type: "post",
