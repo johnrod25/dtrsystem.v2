@@ -44,7 +44,9 @@
                         foreach($attendance as $cnt): 
                     ?>
                     <tr class="text-capitalize">
-                        <td><?= $cnt['rfid']; ?></td>
+                        <td><?= $cnt['rfid']; ?>
+                      <input type="hidden" name="rfid"id="rfid"value="<?= $cnt['rfid']; ?>">
+                      </td>
                         <td><?= $cnt['fullname']; ?></td>
                         <td><?php if($cnt['morning_in'] != NULL){ 
                           echo date('h:i A', strtotime($cnt['morning_in']));

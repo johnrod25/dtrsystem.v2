@@ -50,14 +50,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-// DASHBOARD ROUTE
-$route['default_controller'] = 'admin/index';
-$route['tapcard'] = 'admin/tapcard';
-$route['fetch'] = 'admin/fetch';
-
 //LOGIN
-$route['login'] = 'login/login';
-$route['login-valid'] = 'login/loginValid';
+$route['default_controller'] = 'home';
+$route['404_override'] = 'home/error_page';
+$route['translate_uri_dashes'] = FALSE;
+
+$route['login'] = 'home/login_page';
+$route['loginvalid'] = 'home/login';
+$route['logout'] = 'home/logout';
+
+// DASHBOARD ROUTE
+//$route['default_controller'] = 'admin/index';
+$route['tapcard'] = 'home/tapcard';
+$route['fetch'] = 'admin/fetch';
 
 // DEPARTMENT ROUTE
 $route['department'] = 'department/index';
@@ -89,6 +94,9 @@ $route['delete-attendance'] = 'attendance/delete';
 
 // REPORT ROUTE
 $route['report'] = 'report/index';
+$route['print-dtr/(:num)/(:num)'] = 'home/printdtr/$1/$2';
+$route['printmydtr'] = 'home/printmydtr';
+$route['printall'] = 'home/printalldtr';
 
 // TRYYY
 // $route['fetch'] = 'staff/fetch';

@@ -95,33 +95,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url(); ?>department" class="nav-link">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>Department</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url(); ?>employee" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Employee</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url(); ?>schedule" class="nav-link">
-                        <i class="nav-icon fas fa-clock"></i>
-                        <p>Schedule</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="<?= base_url(); ?>attendance" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>Attendance</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url(); ?>report" class="nav-link">
-                        <i class="nav-icon fas fa-print"></i>
-                        <p>Report</p>
                     </a>
                 </li>
 

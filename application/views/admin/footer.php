@@ -431,6 +431,59 @@ $(document).on("click", "#update-schedule", function(e) {
         });
     }
 });
+
+
+$(document).on("click", "#print-dtr", function(e) {
+    e.preventDefault();
+    var rfid = $(this).attr("value");
+    var start_date =  $("#start_date").val();
+    var end_date =  $("#end_date").val();
+    if (start_date == "" && end_date == "") {
+        alert("Set Date First.");
+    } else {
+        $.ajax({
+            url: "<?php echo base_url(); ?>printmydtr",
+            type: "post",
+            dataType: "json",
+            data: {
+                rfid:rfid,
+                start_date:start_date,
+                end_date:end_date
+            },
+            success: function(data) {
+                if (data.response === 'success') {
+                  alert('PRinttttt');
+                } else {
+                  errorToast(data.message);
+                }
+            }
+        });
+    }
+});
+
+$(document).on("click", "#opendtr", function(e) {
+    e.preventDefault();
+    var rfid = $(this).attr("value");
+    var start = document.getElementById('start_date').value;
+    var end = document.getElementById('end_date').value;
+    if(start == "" ||end == ""){
+      errorToast('Set Date First.');
+    }else{
+      document.getElementById('myrfid').value=rfid;
+      document.getElementById('form').submit();
+    }
+});
+
+$(document).on("click", "#opendtratd", function(e) {
+    e.preventDefault();
+    var start = document.getElementById('start_date').value;
+    var end = document.getElementById('end_date').value;
+    if(start == "" ||end == ""){
+      errorToast('Set Date First.');
+    }else{
+      document.getElementById('form').submit();
+    }
+});
 </script>
 </body>
 </html>

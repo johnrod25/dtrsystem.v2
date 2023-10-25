@@ -3,13 +3,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Attendance extends CI_Controller {
 
+	// function __construct()
+    // {
+    //     parent::__construct();
+    //     if ( ! $this->session->userdata('logged_in'))
+    //     { 
+    //         redirect(base_url().'login');
+    //     }
+    // }
+	
     public function index()
     {
-        $data['attendance']=$this->Attendance_model->select_attendance();
-        $data['fullname']=$this->Schedule_model->select_fullname();
-        $this->load->view('admin/header');
-        $this->load->view('admin/attendance',$data);
-        $this->load->view('admin/footer');
+		if ( ! $this->session->userdata('logged_in')) { 
+            redirect(base_url('login'));
+        } else {
+            if($this->session->userdata('usertype')==1) {
+				$data['attendance']=$this->Attendance_model->select_attendance();
+				$data['fullname']=$this->Schedule_model->select_fullname();
+				$this->load->view('admin/header');
+				$this->load->view('admin/attendance',$data);
+				$this->load->view('admin/footer');
+			} else{
+				$staff=$this->session->userdata('rfid');
+				$data['attendance']  = $this->Attendance_model->select_attendance_byID($staff);
+				$this->load->view('staff/header');
+				$this->load->view('staff/attendance',$data);
+				$this->load->view('staff/footer');
+			}   
+		}
     }
 
 	public function insert()
@@ -24,7 +45,8 @@ class Attendance extends CI_Controller {
                 $id = $this->input->post('id');
 				$time = date('H:i:s', $timestamp);
 				$date = date('Y-m-d', $timestamp); 
-				$attendance = $this->Attendance_model->select_attendance_byID($id, $date);
+				$attendance = $this->Attendance_model->select_attendance_byIDate($id, $date);
+				//print_r($attendance);
 				$schedule = $this->Schedule_model->select_schedule_tapcard_byID($id);
 				$currentHour = date('H', $timestamp);
 				if ($currentHour < 12) {
@@ -38,9 +60,9 @@ class Attendance extends CI_Controller {
 					if($attendance == NULL){
 						$sched = $schedule[0][$time_in];
 						$diff = strtotime("$time")-strtotime($sched);
-						// echo "time: ".strtotime("$time")." - ".strtotime("$sched")." = ".$diff;
+						 //echo "time: ".strtotime($time)." - ".strtotime("$sched")." = ".$diff.$time_in;
 						if($diff <=3600 && $diff >= -3600 ){
-							$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$schedule[0]['fullname'], $time_in=>$time));
+							$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$schedule[0]['fullname'], $time_in=>$time, 'log_date'=>$date));
 							$data = array('response' => "success", 'message' => "Successfully Time In", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
 						}else{
 							$data = array('response' => "error", 'message' => "Please Check Your Schedule First", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
@@ -60,7 +82,7 @@ class Attendance extends CI_Controller {
 							$sched = $schedule[0][$time_out];
 							$diff = strtotime($time)-strtotime($sched);
 							if($diff <=3600 && $diff >= -3600 ){
-							$this->Attendance_model->update_attendance(array($time_out => $time, 'log_date'=>$date), $id);
+							$this->Attendance_model->update_attendance(array($time_out => $time), $id,$date);
 							$data = array('response' => "success", 'message' => "Successfully Time Out", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
 							}
 							else{

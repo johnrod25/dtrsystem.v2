@@ -20,10 +20,13 @@ class Attendance_model extends CI_Model {
         }
     }
 
-    function select_attendance_byID($id, $date) {
+    function select_attendance_byMonth ($id, $date) {
         $this->db->order_by('id','DESC');
         $this->db->where('rfid',$id);
-        $this->db->where("log_date >= ",$date);
+        echo date('n', strtotime('log_date'))."  -  ".$date."  -  ".$id;
+        $month = date('n', strtotime('log_date'));
+        $this->db->where($month.'>=',$date);
+        //$this->db->where(date('n', strtotime('log_date')).'<=',($date+1));
         $qry=$this->db->get('attendance_tbl');
         if($qry->num_rows()>0)
         {
@@ -31,8 +34,47 @@ class Attendance_model extends CI_Model {
             return $result;
         }
     }
-    function update_attendance($data,$id) {
+
+    function select_attendance_byAll($start_date, $end_date) {
+        $this->db->order_by('id','DESC');
+        $this->db->where("log_date >= ",$start_date);
+        $this->db->where("log_date <= ",$end_date);
+        $qry=$this->db->get('attendance_tbl');
+            $result=$qry->result_array();
+            return $result;
+    }
+
+    function select_attendance_byRfid($rfid, $start_date, $end_date) {
+        $this->db->order_by('id','DESC');
+        $this->db->where('rfid',$rfid);
+        $this->db->where("log_date >= ",$start_date);
+        $this->db->where("log_date <= ",$end_date);
+        $qry=$this->db->get('attendance_tbl');
+            $result=$qry->result_array();
+            return $result;
+    }
+
+    function select_attendance_byID($id) {
+        $this->db->order_by('id','DESC');
+        $this->db->where('rfid',$id);
+        //$this->db->where("log_date >= ",$date);
+        $qry=$this->db->get('attendance_tbl');
+            $result=$qry->result_array();
+            return $result;
+    }
+
+    function select_attendance_byIDate($id,$date) {
+        $this->db->order_by('id','DESC');
+        $this->db->where('rfid',$id);
+        $this->db->where("log_date >= ",$date);
+        $qry=$this->db->get('attendance_tbl');
+            $result=$qry->result_array();
+            return $result;
+    }
+
+    function update_attendance($data,$id,$date) {
         $this->db->where('rfid', $id);
+        $this->db->where("log_date >= ",$date);
         return $this->db->update('attendance_tbl',$data);
         $this->db->affected_rows();
     }

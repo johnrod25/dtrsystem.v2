@@ -1,6 +1,15 @@
 <?php
 class Admin extends CI_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
+        if ( ! $this->session->userdata('logged_in'))
+        { 
+            redirect(base_url().'login');
+        }
+    }
+
     public function index() {
         $timestamp = time();
         $date = date('Y-m-d', $timestamp); 
@@ -65,15 +74,6 @@ class Admin extends CI_Controller {
             $this->load->view('admin/'.$page, $data);
             $this->load->view ('admin/footer');
         }
-    }
-
-    public function tapcard(){
-        $timestamp = time();
-        $date = date('Y-m-d', $timestamp);
-        $data['attendance']=$this->Dashboard_model->attendance_today($date);
-        $data['fullname']=$this->Schedule_model->select_fullname();
-        $this->load->view('admin/tapcard',$data);
-        // $this->load->view('admin/footer',$data);
     }
 
     function fetch(){
