@@ -3,22 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Staff extends CI_Controller {
 
-    // function __construct()
-    // {
-    //     parent::__construct();
-    //     if ( ! $this->session->userdata('logged_in'))
-    //     { 
-    //         redirect(base_url().'login');
-    //     }
-    // }
+    function __construct()
+    {
+        parent::__construct();
+        if ( ! $this->session->userdata('logged_in'))
+        { 
+            redirect(base_url().'login');
+        }
+    }
 
-    public function __construct()
-	{
-		parent::__construct();
-		$this->load->helper(array('form', 'url'));
-		$this->load->library(array('form_validation'));
-		$this->load->model('staff_model');
-	}
+    // public function __construct()
+	// {
+	// 	parent::__construct();
+	// 	$this->load->helper(array('form', 'url'));
+	// 	$this->load->library(array('form_validation'));
+	// 	$this->load->model('staff_model');
+	// }
 
     public function index()
     {

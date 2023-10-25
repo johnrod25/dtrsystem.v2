@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Time Record</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {s
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 20px;
+            cursor: pointer;
+        }
+        .add-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Daily Time Record</h1>
+    <button class="add-button" onclick="addTimeRecord()">Add Time Record</button>
+    <table id="timeRecordTable">
+        <tr>
+            <th>Date</th>
+            <th>Clock In</th>
+            <th>Clock Out</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+    <script>
+        function addTimeRecord() {
+            const table = document.getElementById("timeRecordTable");
+            const newRow = table.insertRow(table.rows.length);
+            const dateCell = newRow.insertCell(0);
+            const clockInCell = newRow.insertCell(1);
+            const clockOutCell = newRow.insertCell(2);
+            const actionsCell = newRow.insertCell(3);
+
+            dateCell.innerHTML = "<input type='date'>";
+            clockInCell.innerHTML = "<input type='time'>";
+            clockOutCell.innerHTML = "<input type='time'>";
+            actionsCell.innerHTML = "<button onclick='editTimeRecord(this)'>Edit</button> " +
+                                   "<button onclick='deleteTimeRecord(this)'>Delete</button>";
+        }
+
+        function editTimeRecord(button) {
+            const row = button.parentNode.parentNode;
+            const cells = row.getElementsByTagName("td");
+            for (let i = 0; i < cells.length - 1; i++) {
+                const input = document.createElement("input");
+                input.type = i === 0 ? "date" : "time";
+                input.value = cells[i].textContent;
+                cells[i].innerHTML = "";
+                cells[i].appendChild(input);
+            }
+            const editButton = row.querySelector("button:nth-child(1)");
+            editButton.innerHTML = "Save";
+            editButton.onclick = function () {
+                saveTimeRecord(this);
+            };
+        }
+
+        function saveTimeRecord(button) {
+            const row = button.parentNode.parentNode;
+            const cells = row.getElementsByTagName("td");
+            for (let i = 0; i < cells.length - 1; i++) {
+                cells[i].innerHTML = cells[i].getElementsByTagName("input")[0].value;
+            }
+            const editButton = row.querySelector("button:nth-child(1)");
+            editButton.innerHTML = "Edit";
+            editButton.onclick = function () {
+                editTimeRecord(this);
+            };
+        }
+
+        function deleteTimeRecord(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>

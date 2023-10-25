@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -19,12 +19,21 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    .container{
+        height: 100vh;
+    }
+    .container .card{
+        width: 350px;
+
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card d-flex m-5">
-        <form class="row g-3 needs-validation p-3" id="form-login" novalidate>
-            <h1 class="align-center">Login</h1>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card d-flex m-5 py-4 px-3">
+        <?php echo form_open('Home/login'); ?>
+            <h1 class="text-center">DTR SYSTEM</h1>
             <div class="col-md-12">
                 <div class="form-group">
                   <label>Username:</label>
@@ -37,35 +46,15 @@
                   <input type="password" name="password" class="form-control" id="password">
                 </div>
             </div>   
-            <button type="submit" class="btn btn-primary col-md-12" id="formLogin">Login</button>                                
+            <div class="col-md-12 text-danger my-2">
+                <?php echo $this->session->flashdata('login_error', 1); ?> 
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            </div>                              
         </form>
         </div>
     </div>
-    <script>
-        //LOGIN
-    $(document).on("click", "#formLogin", function(e) {
-    e.preventDefault();
-    var username = $("#username").val();
-    var password = $("#password").val();
 
-    
-    $.ajax({
-        url: "<?php echo base_url(); ?>loginValid",
-        type: "post",
-        dataType: "json",
-        data: {
-            username: username,
-            password: password
-        },
-        success: function(data) {
-            if (data.response == "success") {
-                
-            } else {
-                
-            }
-        }
-    });
-    });
-    </script>
 </body>
 </html>
