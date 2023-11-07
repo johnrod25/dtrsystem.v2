@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Attendance</title>
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/dist/img/logo.jpg" type="image/x-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -21,9 +22,9 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="container-fluid bg-dark d-flex justify-content-between align-items-center p-2 px-5">
     <a href="<?= base_url(); ?>assets/dashboard.html">
-        <img src="<?= base_url(); ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8; width: 26px;">
+        <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 26px;">
     </a>
-    <h3>DTR SYSTEM</h3>
+    <h3></h3>
     <a href="<?= base_url(); ?>login" class="btn btn-primary">Sign In</a>
 </div>
 <div class="container-fluid row p-3">
