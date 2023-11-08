@@ -1,16 +1,16 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('Nooooo direct script access allowed');
 
 class Department extends CI_Controller {
 
-	function __construct()
-    {
-        parent::__construct();
-        if ( ! $this->session->userdata('logged_in'))
-        { 
-            redirect(base_url().'login');
-        }
-    }
+	// function __construct()
+    // {
+    //     parent::__construct();
+    //     if ( ! $this->session->userdata('logged_in'))
+    //     { 
+    //         redirect(base_url().'login');
+    //     }
+    // }
 
     // public function __construct()
 	// {
@@ -47,6 +47,16 @@ class Department extends CI_Controller {
 		} else {
 			echo "'No direct script access allowed'";
 		}
+	}
+	public function insertpost()
+	{
+			$ajax_data = $this->input->post();
+				if ($this->Department_model->insert_department($ajax_data)) {
+					$data = array('response' => "success", 'message' => "Data added successfully");
+				} else {
+					$data = array('response' => "error", 'message' => "Failed");
+				}
+			echo json_encode($data);
 	}
 
     public function edit()

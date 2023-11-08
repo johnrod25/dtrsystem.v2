@@ -67,6 +67,7 @@ $route['fetch'] = 'admin/fetch';
 // DEPARTMENT ROUTE
 $route['department'] = 'department/index';
 $route['insert-department'] = 'department/insert';
+$route['insert-departmentpost'] = 'department/insertpost';
 $route['edit-department'] = 'department/edit';
 $route['update-department'] = 'department/update';
 $route['delete-department'] = 'department/delete';

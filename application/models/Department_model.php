@@ -6,6 +6,11 @@ class Department_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function insert_departmentpost($data) {
+        $this->db->insert("department_tbl",$data);
+        return $this->db->insert_id();
+    }
+
     function select_department () {
         $qry=$this->db->get('department_tbl');
         // if($qry->num_rows()>0)

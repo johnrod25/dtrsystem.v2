@@ -22,7 +22,7 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="container-fluid bg-dark d-flex justify-content-between align-items-center p-2 px-5">
     <a href="<?= base_url(); ?>assets/dashboard.html">
-        <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 26px;">
+        <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 40px;">
     </a>
     <h3></h3>
     <a href="<?= base_url(); ?>login" class="btn btn-primary">Sign In</a>
