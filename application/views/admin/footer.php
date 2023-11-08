@@ -159,6 +159,7 @@ $(document).on("click", "#edit-staff", function(e) {
                     $('#modal-edit').modal('show');
                     $("#edit_id").val(data.post[0].id);
                     $("#edit_rfid").val(data.post[0].rfid);
+                    $("#edit_rfid2").val(data.post[0].rfid);
                     $("#edit_lname").val(data.post[0].lastname);
                     $("#edit_fname").val(data.post[0].firstname);
                     $("#edit_mname").val(data.post[0].midname);
@@ -181,6 +182,7 @@ $(document).on("click", "#update-staff", function(e) {
     e.preventDefault();
     var edit_id = $("#edit_id").val();
     var edit_rfid =  $("#edit_rfid").val();
+    var edit_rfid2 =  $("#edit_rfid2").val();
     var edit_lname =  $("#edit_lname").val();
     var edit_fname =  $("#edit_fname").val();
     var edit_mname =  $("#edit_mname").val();
@@ -201,6 +203,7 @@ $(document).on("click", "#update-staff", function(e) {
             data: {
                 id: edit_id,
                 rfid: edit_rfid,
+                rfid2: edit_rfid2,
                 lastname: edit_lname,
                 firstname: edit_fname,
                 midname: edit_mname,

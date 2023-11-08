@@ -79,6 +79,12 @@ class Attendance_model extends CI_Model {
         $this->db->affected_rows();
     }
 
+    function update_staff_attendance($data,$id) {
+        $this->db->where('rfid', $id);
+        return $this->db->update('attendance_tbl',$data);
+        $this->db->affected_rows();
+    }
+
     function select_fullname () {
         $this->db->order_by('staff_tbl.id','DESC');
         $this->db->select("*");

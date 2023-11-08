@@ -192,6 +192,7 @@
                         <div class="form-group">
                         <label>RFID Number</label>
                         <input type="hidden" name="edit_id" id="edit_id" class="form-control">
+                        <input type="hidden" name="edit_rfid2" id="edit_rfid2" class="form-control">
                         <input type="text" name="edit_rfid" id="edit_rfid" class="form-control" placeholder="RFID Number">
                         </div>
                     </div>

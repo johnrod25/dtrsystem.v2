@@ -94,6 +94,7 @@ class Staff extends CI_Controller {
 			} else {
 				$id = $this->input->post('id');
                 $rfid = $this->input->post('rfid');
+				$rfid2 = $this->input->post('rfid2');
 				$lastname = $this->input->post('lastname');
                 $firstname = $this->input->post('firstname');
                 $midname = $this->input->post('midname');
@@ -106,6 +107,8 @@ class Staff extends CI_Controller {
                 $address = $this->input->post('address');
 
 				if ($this->Staff_model->update_staff(array('rfid'=>$rfid,'lastname'=>$lastname,'firstname'=>$firstname,'midname'=>$midname,'dob'=>$dob,'gender'=>$gender,'civil_status'=>$civil_status,'department_id'=>$department_id,'number'=>$number,'email'=>$email, 'address'=>$address), $id)) {
+					$this->Schedule_model->update_schedule_staff(array('staff_id'=>$rfid), $rfid2);
+					$this->Attendance_model->update_staff_attendance(array('rfid'=>$rfid),$rfid2);
 					$data = array('response' => "success", 'message' => "Data update successfully");
 				} else {
 					$data = array('response' => "error", 'message' => "Failed");

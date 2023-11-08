@@ -61,4 +61,10 @@ class Schedule_model extends CI_Model {
         $this->db->affected_rows();
     }
 
+    function update_schedule_staff($data,$id) {
+        $this->db->where('staff_id', $id);
+        return $this->db->update('schedule_tbl',$data);
+        $this->db->affected_rows();
+    }
+
 }

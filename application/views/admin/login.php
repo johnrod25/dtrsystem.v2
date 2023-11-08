@@ -38,8 +38,8 @@
         <?php echo form_open('Home/login'); ?>
             <!-- <h1 class="text-center">DTR SYSTEM</h1> -->
             <div class="col-md-12 logo-img d-flex justify-content-center align-items-center mb-3">
-            <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="RBASASHS" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <h1 class="text-center ml-2">DTR SYSTEM</h1>
+            <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="RBASASHS" class="brand-image img-circle elevation-3" style="opacity: .8; width:80px; height:80px;">
+            <!-- <h1 class="text-center ml-2">DTR SYSTEM</h1> -->
             </div>
             <div class="col-md-12">
                 <div class="form-group">
