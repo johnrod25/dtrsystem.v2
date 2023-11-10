@@ -479,9 +479,9 @@ $(document).on("click", "#opendtr", function(e) {
 
 $(document).on("click", "#opendtratd", function(e) {
     e.preventDefault();
-    var start = document.getElementById('start_date').value;
-    var end = document.getElementById('end_date').value;
-    if(start == "" ||end == ""){
+    var month = document.getElementById('monthdate').value;
+    var year = document.getElementById('yeardate').value;
+    if(month == "" ||year == ""){
       errorToast('Set Date First.');
     }else{
       document.getElementById('form').submit();

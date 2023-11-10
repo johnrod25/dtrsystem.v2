@@ -48,20 +48,52 @@ class Attendance extends CI_Controller {
 				$time = date('H:i:s', $timestamp);
 				$date = date('Y-m-d', $timestamp); 
 				$attendance = $this->Attendance_model->select_attendance_byIDate($id, $date);
-				
+				//print_r($attendance);
+				$schedule = $this->Schedule_model->select_schedule_tapcard_byID($id);
 				$staff = $this->Staff_model->select_staff_byRFID($id);
-				$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
-				
-                if($staff != NULL){
+				$currentHour = date('H', $timestamp);
+				if ($currentHour < 12) {
+					$time_in = 'morning_in';
+					$time_out = 'morning_out';
+				} else {
+					$time_in = 'afternoon_in';
+					$time_out = 'afternoon_out';
+				}
+                if($schedule != NULL){
 					if($attendance == NULL){
-						$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$time, 'log_date'=>$date));
-						$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
-					}else{
-						if($attendance[0][$taptime] == NULL){
-							$this->Attendance_model->update_attendance(array($taptime => $time), $id,$date);
-							$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
+						$sched = $schedule[0][$time_in];
+						$diff = strtotime("$time")-strtotime($sched);
+						 //echo "time: ".strtotime($time)." - ".strtotime("$sched")." = ".$diff.$time_in;
+						if($diff <=3600 && $diff >= -3600 ){
+							$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$schedule[0]['fullname'], $time_in=>$time, 'log_date'=>$date));
+							$data = array('response' => "success", 'message' => "Successfully Time In", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
 						}else{
-							$data = array('response' => "error", 'message' => "You Already Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
+							$data = array('response' => "error", 'message' => "Please Check Your Schedule First", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+						}
+					}else{
+						if($attendance[0][$time_in] == NULL){
+							$sched = $schedule[0][$time_in];
+							$diff = strtotime($time)-strtotime($sched);
+							if($diff <=3600 && $diff >= -3600 ){
+								$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$schedule[0]['fullname'], $time_in=>$time));
+								$data = array('response' => "success", 'message' => "Successfully Time In", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+							}else{
+								$data = array('response' => "error", 'message' => "Please Check Your Schedule First", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+							}
+						}else{
+							if($attendance[0][$time_out] == NULL){
+							$sched = $schedule[0][$time_out];
+							$diff = strtotime($time)-strtotime($sched);
+							if($diff <=3600 && $diff >= -3600 ){
+							$this->Attendance_model->update_attendance(array($time_out => $time), $id,$date);
+							$data = array('response' => "success", 'message' => "Successfully Time Out", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+							}
+							else{
+								$data = array('response' => "error", 'message' => "You Already Time In", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+							}
+							}else{
+								$data = array('response' => "error", 'message' => "You Already Time Out", 'rfid'=> $id, 'fullname'=> $schedule[0]['fullname']);
+							}
 						}
 					}
                 }else{

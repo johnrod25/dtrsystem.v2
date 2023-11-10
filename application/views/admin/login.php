@@ -57,7 +57,7 @@
                 <?php echo $this->session->flashdata('login_error', 1); ?> 
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
             </div>                              
         </form>
         </div>

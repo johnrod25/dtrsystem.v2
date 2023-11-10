@@ -169,6 +169,55 @@ class Home extends CI_Controller {
         {
             if($this->session->userdata('usertype')==1)
             {
+                $month = $this->input->post('monthdate');
+                $year = $this->input->post('yeardate');
+                $dateRecords = $this->Attendance_model->select_attendance();
+
+                $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
+                    return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                });
+
+                $this->load->view('admin/header');
+                $this->load->view('system/print_all_dtr',$data);
+                $this->load->view('admin/footer');                
+            } else{
+                $rfid=$this->session->userdata('rfid');
+                $month = $this->input->post('monthdate');
+                $year = $this->input->post('yeardate');
+                $dateRecords = $this->Attendance_model->select_attendancebyID($rfid);
+
+                $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
+                    return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                });
+
+                $this->load->view('staff/header');
+                $this->load->view('system/print_all_dtr',$data);
+                $this->load->view('staff/footer');
+            }   
+        }
+    }
+
+    public function printmydtr()
+    {
+        $rfid = $this->input->post('rfid');
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $data['content'] = $this->Attendance_model->select_attendance_byRfid($rfid,$start_date,$end_date);
+        $this->load->view('admin/header');
+        $this->load->view('system/print_dtr',$data);
+        $this->load->view('admin/footer');
+    }
+
+    public function printalldtr_old()
+    {
+        if ( ! $this->session->userdata('logged_in'))
+        { 
+            redirect(base_url('login'));
+        }
+		else
+        {
+            if($this->session->userdata('usertype')==1)
+            {
                 $start_date = $this->input->post('start_date');
                 $end_date = $this->input->post('end_date');
                 $data['content'] = $this->Attendance_model->select_attendance_byAll($start_date,$end_date);
@@ -190,18 +239,8 @@ class Home extends CI_Controller {
         }
     }
 
-    public function printmydtr()
-    {
-        $rfid = $this->input->post('rfid');
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
-        $data['content'] = $this->Attendance_model->select_attendance_byRfid($rfid,$start_date,$end_date);
-        $this->load->view('admin/header');
-        $this->load->view('system/print_dtr',$data);
-        $this->load->view('admin/footer');
-    }
-
     
 }
+
 
 ?>

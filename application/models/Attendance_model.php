@@ -13,11 +13,8 @@ class Attendance_model extends CI_Model {
 
     function select_attendance () {
         $qry=$this->db->get('attendance_tbl');
-        if($qry->num_rows()>0)
-        {
-            $result=$qry->result_array();
-            return $result;
-        }
+        $result=$qry->result_array();
+        return $result;
     }
 
     function select_attendance_byMonth ($id, $date) {

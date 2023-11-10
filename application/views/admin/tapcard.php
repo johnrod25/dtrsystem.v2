@@ -36,8 +36,11 @@
                         <div class="card-body">
                             <h4 class="text-center" id="headcard">TAP YOUR CARD</h4>
                             <input type="text" class="form-control p-3 mb-3" id="focus">
-                            <div class="card bg-secondary text-center d-flex align-items-center justify-content-center" style="width: 100%; height: 250px;">
-                                <i class="fa fa-user" aria-hidden="true" class="h-100 w-100" style="font-size: 120px;"></i>
+                            <input type="hidden" class="form-control p-3 mb-3" id="taptime">
+                            <div class="card text-center d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+                                <!-- <i class="fa fa-user" aria-hidden="true" class="h-100 w-100" style="font-size: 120px;"></i> -->
+                                <video id="video" autoplay class="h-100 w-100"></video>
+                                <img id="snapshot" src="" alt="Snapshot">
                             </div>
                             <div id="errorr" class="text-capitalize">
                                 <h6><strong>Name: </strong><span id="name"></span></h6>
@@ -110,6 +113,31 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="attendanceModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Attendance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('morning_in')">Morning Time In</button>
+        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('morning_out')">Morning Time Out</button>
+        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('afternoon_in')">Afternoon Time In</button>
+        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('afternoon_out')">Afternoon Time Out</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="<?= base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
@@ -146,6 +174,7 @@
 <script>
   $(document).ready(function() {
     $('#example').DataTable();
+    $('#attendanceModal').modal('show');
    } );
 
    function successToast(){
@@ -211,16 +240,25 @@ const name = document.getElementById('name');
 const rfid = document.getElementById('rfid');
 inputField.focus();
 
+function setTapTime(taptime){
+    document.getElementById('taptime').value = taptime;
+    $('#attendanceModal').modal('hide');
+    inputField.focus();
+   }
+
 inputField.addEventListener('input', () => {
     if (inputField.value.trim() !== '' && inputField.value.length == 10) {
         const id = inputField.value;
+        const taptime = document.getElementById('taptime').value;
+        // const img = capturePic();
         inputField.disabled = true;
         $.ajax({
         url: "<?php echo base_url(); ?>insert-attendance",
         type: "post",
         dataType: "json",
         data: {
-            id: id
+            id: id,
+            taptime: taptime
         },
         success: function(data) {
             if (data.response == "success") {
@@ -229,6 +267,7 @@ inputField.addEventListener('input', () => {
                 name.innerHTML = data.fullname;
                 rfid.innerHTML = data.rfid;
                 inputField.value = data.rfid;
+                successToast(data.message);
                 setTimeout(() => {
                 inputField.disabled = false;
                 inputField.focus();
@@ -246,6 +285,8 @@ inputField.addEventListener('input', () => {
                 inputField.disabled = false;
                 inputField.focus();
                 document.getElementById('headcard').innerHTML = "TAP YOUR CARD";
+                document.getElementById('taptime').value = null;
+                $('#attendanceModal').modal('show');
                 }, 2000); 
               errorToast(data.message);
             }
@@ -253,6 +294,46 @@ inputField.addEventListener('input', () => {
     });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('video');
+    const captureButton = document.getElementById('capture');
+    const snapshotImage = document.getElementById('snapshot');
+    
+    // Access the user's camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            console.error('Error accessing camera: ' + err);
+        });
+
+});
+
+// Capture a snapshot
+function capturePic(){
+      const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Display the snapshot
+        snapshotImage.src = canvas.toDataURL('admin');
+        
+        // Save the snapshot to the server (call a PHP endpoint)
+        const snapshotData = canvas.toDataURL('admin');
+        alert(snapshotData);
+        return snapshotData;
+        // saveSnapshotToServer(snapshotData);
+    }
+
+function saveSnapshotToServer(snapshotData) {
+    // Send the snapshot data to a PHP script for saving to MySQL
+    // You'll need to make an AJAX request to your PHP endpoint.
+    // Example: use fetch or XMLHttpRequest to send the data.
+}
 
 // function tapToast(){
 //     let tapcard = JSON.parse(localStorage.getItem('Tapcard'));
