@@ -36,10 +36,18 @@
                         <tr>
                         <td><?= $cnt['fullname']; ?></td>
                             <td><?= $cnt['log_date']; ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['morning_in'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['morning_out'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['afternoon_in'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['afternoon_out'])); ?></td>
+                            <td><?php if($cnt['morning_in'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['morning_in']));
+                            } ?></td>
+                            <td><?php if($cnt['morning_out'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['morning_out']));
+                            } ?></td>
+                            <td><?php if($cnt['afternoon_in'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['afternoon_in']));
+                            } ?></td>
+                            <td><?php if($cnt['afternoon_out'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['afternoon_out']));
+                            } ?></td>
                             <td><?php 
                             $hours = (abs(strtotime($cnt['morning_out'])-strtotime($cnt['morning_in']))+ abs(strtotime($cnt['afternoon_out'])-strtotime($cnt['afternoon_in'])))/3600;
                             // Get the whole number part (hours)
