@@ -48,7 +48,15 @@ class Staff extends CI_Controller {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
+				$rfid = $this->input->post('rfid');
+				$lastname = $this->input->post('lastname');
+                $firstname = $this->input->post('firstname');
+                $midname = $this->input->post('midname');
+				$dob = $this->input->post('dob');
+				$email = $this->input->post('email');
+				$password = $lastname.$firstname[0].$midname[0].date('Y', strtotime($dob));
 				if ($this->Staff_model->insert_staff($ajax_data)) {
+					$this->Home_model->insert_login(array('rfid'=>$rfid, 'username'=>$email, 'password'=>$password, 'usertype'=>2, 'status'=>1));
 					$data = array('response' => "success", 'message' => "Data added successfully");
 				} else {
 					$data = array('response' => "error", 'message' => "Failed");
@@ -108,10 +116,11 @@ class Staff extends CI_Controller {
 
 				if ($this->Staff_model->update_staff(array('rfid'=>$rfid,'lastname'=>$lastname,'firstname'=>$firstname,'midname'=>$midname,'dob'=>$dob,'gender'=>$gender,'civil_status'=>$civil_status,'department_id'=>$department_id,'number'=>$number,'email'=>$email, 'address'=>$address), $id)) {
 					$this->Schedule_model->update_schedule_staff(array('staff_id'=>$rfid), $rfid2);
-					$this->Attendance_model->update_staff_attendance(array('rfid'=>$rfid),$rfid2);
-					$data = array('response' => "success", 'message' => "Data update successfully");
+					$this->Attendance_model->update_staff_attendance(array('rfid'=>$rfid), $rfid2);
+					$this->Home_model->update_login(array('rfid'=>$rfid), $rfid2);
+					$data = array('response' => "success", 'message' => "Staff updated successfully");
 				} else {
-					$data = array('response' => "error", 'message' => "Failed");
+					$data = array('response' => "error", 'message' => "Failed to update staff");
 				}
 			}
 			echo json_encode($data);

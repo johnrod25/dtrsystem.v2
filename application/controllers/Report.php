@@ -14,11 +14,24 @@ class Report extends CI_Controller {
 	
     public function index()
     {
-        $data['content']=$this->Staff_model->select_staff();
-        $data['department']=$this->Staff_model->select_departments();
-        $this->load->view('admin/header');
-        $this->load->view('admin/report',$data);
-        $this->load->view('admin/footer');
+		if ( ! $this->session->userdata('logged_in')) { 
+            redirect(base_url('login'));
+        } else {
+            if($this->session->userdata('usertype')==1) {
+				$data['content']=$this->Staff_model->select_staff();
+				$data['department']=$this->Staff_model->select_departments();
+				$this->load->view('admin/header');
+				$this->load->view('admin/report',$data);
+				$this->load->view('admin/footer');
+			} else{
+				$staff=$this->session->userdata('rfid');
+				$data['content']=$this->Staff_model->select_staff();
+				$data['department']=$this->Staff_model->select_departments();
+				$this->load->view('staff/header');
+				$this->load->view('staff/report',$data);
+				$this->load->view('staff/footer');
+			}   
+		}
     }
 
     public function insert()

@@ -107,12 +107,12 @@
                         <p>Employee</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= base_url(); ?>schedule" class="nav-link">
                         <i class="nav-icon fas fa-clock"></i>
                         <p>Schedule</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="<?= base_url(); ?>attendance" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>

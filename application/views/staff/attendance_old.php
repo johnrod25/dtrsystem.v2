@@ -11,38 +11,16 @@
                     <h3>Manage Attendance</h3>
                     <form role="form" id="form" action="<?php echo base_url(); ?>printall" method="POST">
                     <div class="col-md-12 d-flex text-center justify-content-center">
-                        <h4 class="mr-2 mt-1">Period:</h4>
+                        <!-- <h4 class="mr-2">Date:</h4> -->
                         <div class="form-group">
-                            <!-- <input type="date" name="start_date" class="form-control" id="start_date"> -->
-                            <select name="monthdate" id="monthdate" class="form-control">
-                              <option value="1">January</option>
-                              <option value="2">February</option>
-                              <option value="3">March</option>
-                              <option value="4">April</option>
-                              <option value="5">May</option>
-                              <option value="6">June</option>
-                              <option value="7">July</option>
-                              <option value="8">August</option>
-                              <option value="9">September</option>
-                              <option value="10">October</option>
-                              <option value="11">November</option>
-                              <option value="12">Decemeber</option>
-                            </select>
+                            <input type="date" name="start_date" class="form-control" id="start_date">
                         </div>
                         <h3 class="px-2"> : </h3>
                         <div class="form-group">
-                            <!-- <input type="date" name="end_date" class="form-control" id="end_date"> -->
-                            <select name="yeardate" id="yeardate" class="form-control">
-                              <option value="2023">2023</option>
-                              <option value="2022">2022</option>
-                              <option value="2021">2021</option>
-                              <option value="2020">2020</option>
-
-                            </select>
-                            <input type="hidden" name="monthtext" id="monthtext">
+                            <input type="date" name="end_date" class="form-control" id="end_date">
                         </div>
                         <div class="form-group">
-                          <button id="opendtratd" class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                          <button id="opendtratd" class="btn btn-primary ml-2"><i class="fa fa-print" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     </form>
@@ -50,18 +28,14 @@
                 <hr class="hr">
                 <table id="example" class="table table-bordered table-striped table-hover">
                     <thead>
-                        <tr class="text-center align-items-center">
-                            <th rowspan="2">RFID Number</th>
-                            <th rowspan="2">Fullname</th>
-                            <th colspan="2">AM</th>
-                            <th colspan="2">PM</th>
-                            <th rowspan="2">Log Date</th>
-                        </tr>
-                        <tr class="text-center">
-                            <th>Time In</th>
-                            <th>Time Out</th>
-                            <th>Time In</th>
-                            <th>Time Out</th>
+                        <tr>
+                            <th>RFID Number</th>
+                            <th>Fullname</th>
+                            <th>Morning In</th>
+                            <th>Morning Out</th>
+                            <th>Afternoon In</th>
+                            <th>Afternoon Out</th>
+                            <th>Log Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +44,9 @@
                         foreach($attendance as $cnt): 
                     ?>
                     <tr class="text-capitalize">
-                        <td><?= $cnt['rfid']; ?></td>
+                        <td><?= $cnt['rfid']; ?>
+                      <input type="hidden" name="rfid"id="rfid"value="<?= $cnt['rfid']; ?>">
+                      </td>
                         <td><?= $cnt['fullname']; ?></td>
                         <td><?php if($cnt['morning_in'] != NULL){ 
                           echo date('h:i A', strtotime($cnt['morning_in']));

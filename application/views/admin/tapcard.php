@@ -115,7 +115,7 @@
 
 
 <div class="modal fade" id="attendanceModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Attendance</h4>
@@ -123,12 +123,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body m-3">
         <div class="row">
-        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('morning_in')">Morning Time In</button>
-        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('morning_out')">Morning Time Out</button>
-        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('afternoon_in')">Afternoon Time In</button>
-        <button class="btn btn-primary col-md-5 m-3" onclick="setTapTime('afternoon_out')">Afternoon Time Out</button>
+            <!-- <h3 class="col-md-12 text-center">Morning</h3> -->
+        <button class="btn btn-info btn-lg col-md-5 m-3" onclick="setTapTime('morning_in')">Morning Time In</button>
+        <button class="btn btn-info btn-lg col-md-5 m-3" onclick="setTapTime('morning_out')">Morning Time Out</button>
+        <!-- <h3 class="col-md-12 text-center">Afternoon</h3> -->
+        <button class="btn btn-info btn-lg col-md-5 m-3" onclick="setTapTime('afternoon_in')">Afternoon Time In</button>
+        <button class="btn btn-info btn-lg col-md-5 m-3" onclick="setTapTime('afternoon_out')">Afternoon Time Out</button>
         </div>
       </div>
     </div>

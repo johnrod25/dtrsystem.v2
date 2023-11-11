@@ -9,7 +9,7 @@ class Home_model extends CI_Model {
         $this->db->where('password',$pw);
         $this->db->select("staff_tbl.*,login_tbl.* ");
         $this->db->from("login_tbl");
-        $this->db->join("staff_tbl",'login_tbl.id=staff_tbl.id');
+        $this->db->join("staff_tbl",'login_tbl.rfid=staff_tbl.rfid');
         $qry=$this->db->get();
         if($qry->num_rows()>0)
         {
@@ -24,10 +24,10 @@ class Home_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function update_rooms($data,$id)
+    function update_login($data,$rfid)
     {
-        $this->db->where('id', $id);
-        $this->db->update('room_tbl',$data);
+        $this->db->where('rfid', $rfid);
+        $this->db->update('login_tbl',$data);
     }
 
     function delete_login_byID($id)

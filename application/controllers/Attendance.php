@@ -50,9 +50,9 @@ class Attendance extends CI_Controller {
 				$attendance = $this->Attendance_model->select_attendance_byIDate($id, $date);
 				
 				$staff = $this->Staff_model->select_staff_byRFID($id);
-				$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
 				
                 if($staff != NULL){
+					$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
 					if($attendance == NULL){
 						$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$time, 'log_date'=>$date));
 						$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);

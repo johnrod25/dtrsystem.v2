@@ -467,9 +467,11 @@ $(document).on("click", "#print-dtr", function(e) {
 $(document).on("click", "#opendtr", function(e) {
     e.preventDefault();
     var rfid = $(this).attr("value");
-    var start = document.getElementById('start_date').value;
-    var end = document.getElementById('end_date').value;
-    if(start == "" ||end == ""){
+    var month = document.getElementById('monthdate').value;
+    var mymonth =document.getElementById('monthdate');
+    var year = document.getElementById('yeardate').value;
+    document.getElementById('monthtext').value = mymonth.options[mymonth.selectedIndex].text;
+    if(month == "" ||year == ""){
       errorToast('Set Date First.');
     }else{
       document.getElementById('myrfid').value=rfid;
@@ -480,7 +482,9 @@ $(document).on("click", "#opendtr", function(e) {
 $(document).on("click", "#opendtratd", function(e) {
     e.preventDefault();
     var month = document.getElementById('monthdate').value;
+    var mymonth =document.getElementById('monthdate');
     var year = document.getElementById('yeardate').value;
+    document.getElementById('monthtext').value = mymonth.options[mymonth.selectedIndex].text;
     if(month == "" ||year == ""){
       errorToast('Set Date First.');
     }else{

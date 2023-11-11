@@ -66,8 +66,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="<?= base_url(); ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">DTR SYSTEM</span>
+      <img src="<?php echo base_url(); ?>assets/dist/img/logo.jpg" alt="RBASASHS" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">RBASASHS</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar py-3">
@@ -100,6 +100,12 @@
                         <p>Attendance</p>
                     </a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a href="<?= base_url(); ?>report" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>Report</p>
+                    </a>
+                </li> -->
 
             </ul>
         </nav>
