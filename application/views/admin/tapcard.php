@@ -254,8 +254,7 @@ inputField.addEventListener('input', () => {
         const taptime = document.getElementById('taptime').value;
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
-        // const img = capturePic();
-
+        
         navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
             video.srcObject = stream;
@@ -331,30 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 });
-
-// Capture a snapshot
-function capturePic(){
-      const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        // Display the snapshot
-        snapshotImage.src = canvas.toDataURL('admin');
-        
-        // Save the snapshot to the server (call a PHP endpoint)
-        const snapshotData = canvas.toDataURL('admin');
-        alert(snapshotData);
-        return snapshotData;
-        // saveSnapshotToServer(snapshotData);
-    }
-
-function saveSnapshotToServer(snapshotData) {
-    // Send the snapshot data to a PHP script for saving to MySQL
-    // You'll need to make an AJAX request to your PHP endpoint.
-    // Example: use fetch or XMLHttpRequest to send the data.
-}
 
 // function tapToast(){
 //     let tapcard = JSON.parse(localStorage.getItem('Tapcard'));
