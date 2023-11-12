@@ -32,7 +32,7 @@
     }
   </style>
 </head>
-<body>
+<body >
     <div class="container d-flex justify-content-center align-items-center">
         <div class="card d-flex m-5 py-4 px-3">
         <?php echo form_open('Home/login'); ?>

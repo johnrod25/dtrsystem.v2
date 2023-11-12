@@ -51,14 +51,27 @@ class Attendance extends CI_Controller {
 				
 				$staff = $this->Staff_model->select_staff_byRFID($id);
 				
+				$imageData = $this->input->post('imageData');
+				// Decode the base64-encoded image data
+				$imageData = str_replace('data:image/png;base64,', '', $imageData);
+				$imageData = str_replace(' ', '+', $imageData);
+				$imageData = base64_decode($imageData);
+				// Generate a unique filename for the image
+				$filename = uniqid('image_') . '.png';
+
                 if($staff != NULL){
 					$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
 					if($attendance == NULL){
 						$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$time, 'log_date'=>$date));
+						$this->Attendance_model->insert_image(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$filename, 'log_date'=>$date));
+						file_put_contents('./assets/dist/img/attendance/' . $filename, $imageData);
+
 						$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
 					}else{
 						if($attendance[0][$taptime] == NULL){
 							$this->Attendance_model->update_attendance(array($taptime => $time), $id,$date);
+							$this->Attendance_model->update_image(array($taptime=>$filename), $id,$date);
+							file_put_contents('./assets/dist/img/attendance/' . $filename, $imageData);
 							$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
 						}else{
 							$data = array('response' => "error", 'message' => "You Already Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);

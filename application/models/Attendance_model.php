@@ -11,6 +11,11 @@ class Attendance_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function insert_image($data) {
+        $this->db->insert("image_tbl",$data);
+        return $this->db->insert_id();
+    }
+
     function select_attendance () {
         $qry=$this->db->get('attendance_tbl');
         $result=$qry->result_array();
@@ -75,6 +80,14 @@ class Attendance_model extends CI_Model {
         return $this->db->update('attendance_tbl',$data);
         $this->db->affected_rows();
     }
+
+    function update_image($data,$id,$date) {
+        $this->db->where('rfid', $id);
+        $this->db->where("log_date >= ",$date);
+        return $this->db->update('image_tbl',$data);
+        $this->db->affected_rows();
+    }
+
 
     function update_staff_attendance($data,$id) {
         $this->db->where('rfid', $id);

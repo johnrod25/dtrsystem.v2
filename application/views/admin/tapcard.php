@@ -40,7 +40,7 @@
                             <div class="card text-center d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
                                 <!-- <i class="fa fa-user" aria-hidden="true" class="h-100 w-100" style="font-size: 120px;"></i> -->
                                 <video id="video" autoplay class="h-100 w-100"></video>
-                                <img id="snapshot" src="" alt="Snapshot">
+                                <canvas id="canvas" style="display: none;"></canvas>
                             </div>
                             <div id="errorr" class="text-capitalize">
                                 <h6><strong>Name: </strong><span id="name"></span></h6>
@@ -252,15 +252,34 @@ inputField.addEventListener('input', () => {
     if (inputField.value.trim() !== '' && inputField.value.length == 10) {
         const id = inputField.value;
         const taptime = document.getElementById('taptime').value;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
         // const img = capturePic();
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((error) => {
+            console.error('Error accessing the camera:', error);
+        });
+
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageDataURL = canvas.toDataURL('image/png');
+
         inputField.disabled = true;
+
         $.ajax({
         url: "<?php echo base_url(); ?>insert-attendance",
         type: "post",
-        dataType: "json",
+        dataType: "json", 
         data: {
             id: id,
-            taptime: taptime
+            taptime: taptime,
+            imageData: imageDataURL
         },
         success: function(data) {
             if (data.response == "success") {
