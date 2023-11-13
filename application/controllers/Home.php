@@ -169,18 +169,43 @@ class Home extends CI_Controller {
         {
             if($this->session->userdata('usertype')==1)
             {
+                $choice = $this->input->post('choice');
                 $month = $this->input->post('monthdate');
                 $year = $this->input->post('yeardate');
                 $monthtext = $this->input->post('monthtext');
                 $data['date'] = array('date'=>$monthtext." ".$year);
                 $dateRecords = $this->Attendance_model->select_attendance();
+                $dataimg = $this->Attendance_model->select_attendance_img();
 
-                $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
-                    return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
-                });
+                if($choice == 1){
+                    $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
+                        return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                    });
+                    $data['images'] = array_filter($dataimg, function ($records) use ($month,$year) {
+                        return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                    });
+                    $this->load->view('admin/header');
+                    $this->load->view('system/print_all_dtr',$data);
+                    $this->load->view('admin/footer');
+
+                }else if($choice == 2){
+                    $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
+                        return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                    });
+                    $this->load->view('admin/header');
+                    $this->load->view('system/printdtronly',$data);
+                    $this->load->view('admin/footer');
+                }else if($choice == 3){
+                    $data['images'] = array_filter($dataimg, function ($records) use ($month,$year) {
+                        return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+                        $this->load->view('admin/header');
+                        $this->load->view('system/printpiconly',$data);
+                        $this->load->view('admin/footer');
+                    });
+                }
 
                 $this->load->view('admin/header');
-                $this->load->view('system/print_all_dtr',$data);
+                $this->load->view('system/printdtronly',$data);
                 $this->load->view('admin/footer');                
             } else{
                 $rfid=$this->session->userdata('rfid');
@@ -193,8 +218,8 @@ class Home extends CI_Controller {
                 });
 
                 $this->load->view('staff/header');
-                $this->load->view('system/print_all_dtr',$data);
-                $this->load->view('staff/footer');
+                    $this->load->view('system/printdtronly',$data);
+                    $this->load->view('staff/footer');
             }   
         }
     }

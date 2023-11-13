@@ -32,31 +32,27 @@
                             <td colspan='7' class="text-center">No Attendance</td>
                             <?php
                         }?>
-                        <?php array_map(function($cnt,$img){ ?>
+                        <?php foreach($content as $cnt): ?>
                         <tr class="text-center">
                         <td><?= $cnt['fullname']; ?></td>
                             <td><?= $cnt['log_date']; ?></td>
                             <td>
                                 <?php if($cnt['morning_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['morning_in']));
                                 } ?>
                             </td>
                             <td>
-                            <?php if($cnt['morning_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                            <?php if($cnt['morning_out'] != NULL){ ?>             
                                 <?= date('h:i A', strtotime($cnt['morning_out']));
                                 } ?>
                             </td>
                             <td>
                                 <?php if($cnt['afternoon_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['afternoon_in']));
                                 } ?>
                             </td>
                             <td>
                                 <?php if($cnt['afternoon_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['afternoon_out']));
                                 } ?>
                             </td>
@@ -76,7 +72,7 @@
                             }
                             ?> hours</td>
                         </tr>
-                        <?php },$content, $images); ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                     </tbody>
                 </table>

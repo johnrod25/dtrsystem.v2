@@ -27,41 +27,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php if(isset($content)): 
-                        if(count($content)==0){ ?>
+                    <?php if(isset($images)): 
+                        if(count($images)==0){ ?>
                             <td colspan='7' class="text-center">No Attendance</td>
                             <?php
                         }?>
-                        <?php array_map(function($cnt,$img){ ?>
+                        <?php foreach($images as $img): ?>
                         <tr class="text-center">
-                        <td><?= $cnt['fullname']; ?></td>
-                            <td><?= $cnt['log_date']; ?></td>
+                        <td><?= $img['fullname']; ?></td>
+                            <td><?= $img['log_date']; ?></td>
                             <td>
-                                <?php if($cnt['morning_in'] != NULL){ ?>
+                                <?php if($img['morning_in'] != NULL){ ?>
                                 <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <?= date('h:i A', strtotime($cnt['morning_in']));
-                                } ?>
+                                <? } ?>
                             </td>
                             <td>
-                            <?php if($cnt['morning_out'] != NULL){ ?>
+                                <?php if($img['morning_out'] != NULL){ ?>
                                 <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <?= date('h:i A', strtotime($cnt['morning_out']));
-                                } ?>
+                                <? } ?>
                             </td>
                             <td>
-                                <?php if($cnt['afternoon_in'] != NULL){ ?>
+                                <?php if($img['afternoon_in'] != NULL){ ?>
                                 <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <?= date('h:i A', strtotime($cnt['afternoon_in']));
-                                } ?>
+                                <? } ?>
                             </td>
                             <td>
-                                <?php if($cnt['afternoon_out'] != NULL){ ?>
+                                <?php if($img['afternoon_out'] != NULL){ ?>
                                 <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <?= date('h:i A', strtotime($cnt['afternoon_out']));
-                                } ?>
+                                <? } ?>
                             </td>
                             <td><?php 
-                            $hours = (abs(strtotime($cnt['morning_out'])-strtotime($cnt['morning_in']))+ abs(strtotime($cnt['afternoon_out'])-strtotime($cnt['afternoon_in'])))/3600;
+                            $hours = (abs(strtotime($img['morning_out'])-strtotime($img['morning_in']))+ abs(strtotime($img['afternoon_out'])-strtotime($img['afternoon_in'])))/3600;
                             // Get the whole number part (hours)
                             $wholeHours = floor($hours);                          
                             // Get the decimal part (minutes)
@@ -76,7 +72,7 @@
                             }
                             ?> hours</td>
                         </tr>
-                        <?php },$content, $images); ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                     </tbody>
                 </table>

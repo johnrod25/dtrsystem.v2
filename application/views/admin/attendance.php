@@ -40,9 +40,12 @@
 
                             </select>
                             <input type="hidden" name="monthtext" id="monthtext">
+                            <input type="hidden" name="choice" id="choice">
                         </div>
                         <div class="form-group">
-                          <button id="opendtratd" class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(1)"></i>Print DTR with Pic</button>
+                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(2)"></i>Print DTR only</button>
+                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(3)"></i>Print Pic only</button>
                         </div>
                     </div>
                     </form>

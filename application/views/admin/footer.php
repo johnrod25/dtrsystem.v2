@@ -479,11 +479,24 @@ $(document).on("click", "#opendtr", function(e) {
     }
 });
 
+function openDtr(choice){
+  var month = document.getElementById('monthdate').value;
+    var mymonth =document.getElementById('monthdate');
+    var year = document.getElementById('yeardate').value;
+    document.getElementById('choice').value = choice;
+    document.getElementById('monthtext').value = mymonth.options[mymonth.selectedIndex].text;
+    if(month == "" ||year == ""){
+      errorToast('Set Date First.');
+    }else{
+      document.getElementById('form').submit();
+    }
+}
 $(document).on("click", "#opendtratd", function(e) {
     e.preventDefault();
     var month = document.getElementById('monthdate').value;
     var mymonth =document.getElementById('monthdate');
     var year = document.getElementById('yeardate').value;
+    document.getElementById('choice').value = choice;
     document.getElementById('monthtext').value = mymonth.options[mymonth.selectedIndex].text;
     if(month == "" ||year == ""){
       errorToast('Set Date First.');

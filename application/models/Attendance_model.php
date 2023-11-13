@@ -22,6 +22,25 @@ class Attendance_model extends CI_Model {
         return $result;
     }
 
+    function select_attendance_img () {
+        $qry=$this->db->get('image_tbl');
+        $result=$qry->result_array();
+        return $result;
+    }
+
+    function select_attendance_imgggg(){
+        $this->db->order_by('attendance_tbl.id','DESC');
+        $this->db->select("attendance_tbl.*,image_tbl.*");
+        $this->db->from("attendance_tbl");
+        
+        $qry=$this->db->get();
+        // if($qry->num_rows()>0)
+        // {
+            $result=$qry->result_array();
+            return $result;
+        // }
+    }
+
     function select_attendance_byMonth ($id, $date) {
         $this->db->order_by('id','DESC');
         $this->db->where('rfid',$id);
