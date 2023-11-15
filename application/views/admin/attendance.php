@@ -37,15 +37,16 @@
                               <option value="2022">2022</option>
                               <option value="2021">2021</option>
                               <option value="2020">2020</option>
-
                             </select>
-                            <input type="hidden" name="monthtext" id="monthtext">
-                            <input type="hidden" name="choice" id="choice">
                         </div>
                         <div class="form-group">
-                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(1)"></i>Print DTR with Pic</button>
-                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(2)"></i>Print DTR only</button>
-                          <button class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true" onclick="openDtr(3)"></i>Print Pic only</button>
+                          <input type="hidden" name="monthtext" id="monthtext">
+                          <input type="hidden" name="choice" id="choice">
+                        </div>
+                        <div class="form-group">
+                          <button class="btn btn-success ml-2" onclick="openDtr(1)"><i class="fa fa-print" aria-hidden="true"></i>Print DTR with Pic</button>
+                          <button class="btn btn-success ml-2" onclick="openDtr(2)"><i class="fa fa-print" aria-hidden="true" ></i>Print DTR only</button>
+                          <button class="btn btn-success ml-2" onclick="openDtr(3)"><i class="fa fa-print" aria-hidden="true"></i>Print Pic only</button>
                         </div>
                     </div>
                     </form>

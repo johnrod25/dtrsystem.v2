@@ -177,6 +177,8 @@ class Home extends CI_Controller {
                 $dateRecords = $this->Attendance_model->select_attendance();
                 $dataimg = $this->Attendance_model->select_attendance_img();
 
+                $this->load->view('admin/header');
+                
                 if($choice == 1){
                     $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
@@ -184,28 +186,23 @@ class Home extends CI_Controller {
                     $data['images'] = array_filter($dataimg, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
                     });
-                    $this->load->view('admin/header');
                     $this->load->view('system/print_all_dtr',$data);
-                    $this->load->view('admin/footer');
 
                 }else if($choice == 2){
                     $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
                     });
-                    $this->load->view('admin/header');
                     $this->load->view('system/printdtronly',$data);
-                    $this->load->view('admin/footer');
                 }else if($choice == 3){
                     $data['images'] = array_filter($dataimg, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
-                        $this->load->view('admin/header');
                         $this->load->view('system/printpiconly',$data);
-                        $this->load->view('admin/footer');
                     });
                 }
 
-                $this->load->view('admin/header');
-                $this->load->view('system/printdtronly',$data);
+                // $this->load->view('admin/footer');
+    
+                // $this->load->view('system/printdtronly',$data);
                 $this->load->view('admin/footer');                
             } else{
                 $rfid=$this->session->userdata('rfid');

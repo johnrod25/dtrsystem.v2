@@ -34,8 +34,8 @@
                         }?>
                         <?php foreach($images as $img): ?>
                         <tr class="text-center">
-                        <td><?= $img['fullname']; ?></td>
-                            <td><?= $img['log_date']; ?></td>
+                        <!-- <td><?= $img['fullname']; ?></td> -->
+                            <!-- <td><?= $img['log_date']; ?></td> -->
                             <td>
                                 <?php if($img['morning_in'] != NULL){ ?>
                                 <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
