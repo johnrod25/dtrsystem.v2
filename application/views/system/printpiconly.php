@@ -17,7 +17,7 @@
                             <th rowspan="2">Date</th>
                             <th colspan="2">AM</th>
                             <th colspan="2">PM</th>
-                            <th rowspan="2">Total Hours</th>
+                            <!-- <th rowspan="2">Total Hours</th> -->
                         </tr>
                         <tr class="text-center">
                             <th>Time In</th>
@@ -30,48 +30,32 @@
                     <?php if(isset($images)): 
                         if(count($images)==0){ ?>
                             <td colspan='7' class="text-center">No Attendance</td>
-                            <?php
-                        }?>
-                        <?php foreach($images as $img): ?>
-                        <tr class="text-center">
-                        <!-- <td><?= $img['fullname']; ?></td> -->
-                            <!-- <td><?= $img['log_date']; ?></td> -->
-                            <td>
-                                <?php if($img['morning_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <? } ?>
-                            </td>
-                            <td>
-                                <?php if($img['morning_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <? } ?>
-                            </td>
-                            <td>
-                                <?php if($img['afternoon_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <? } ?>
-                            </td>
-                            <td>
-                                <?php if($img['afternoon_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
-                                <? } ?>
-                            </td>
-                            <td><?php 
-                            $hours = (abs(strtotime($img['morning_out'])-strtotime($img['morning_in']))+ abs(strtotime($img['afternoon_out'])-strtotime($img['afternoon_in'])))/3600;
-                            // Get the whole number part (hours)
-                            $wholeHours = floor($hours);                          
-                            // Get the decimal part (minutes)
-                            $decimalMinutes = ($hours - $wholeHours) * 60;                          
-                            // Format the result as hours and minutes
-                            $formattedTime = sprintf("%02d:%02d", $wholeHours, $decimalMinutes);
-                          
-                            if($hours >24){
-                                echo "__:__";
-                            }else{
-                                echo $formattedTime;
-                            }
-                            ?> hours</td>
-                        </tr>
+                            <?php } ?>
+                            <?php foreach($images as $img): ?>
+                            <tr class="text-center">
+                                <td><?= $img['fullname']; ?></td>
+                                <td><?= $img['log_date']; ?></td>
+                                <td>
+                                    <?php if($img['morning_in'] != NULL){ ?>
+                                    <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if($img['morning_out'] != NULL){ ?>
+                                    <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if($img['afternoon_in'] != NULL){ ?>
+                                    <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if($img['afternoon_out'] != NULL){ ?>
+                                    <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                    <?php } ?>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     </tbody>

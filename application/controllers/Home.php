@@ -196,13 +196,9 @@ class Home extends CI_Controller {
                 }else if($choice == 3){
                     $data['images'] = array_filter($dataimg, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
-                        $this->load->view('system/printpiconly',$data);
                     });
+                    $this->load->view('system/printpiconly',$data);
                 }
-
-                // $this->load->view('admin/footer');
-    
-                // $this->load->view('system/printdtronly',$data);
                 $this->load->view('admin/footer');                
             } else{
                 $rfid=$this->session->userdata('rfid');
