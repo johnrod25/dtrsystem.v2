@@ -28,6 +28,13 @@ class Attendance_model extends CI_Model {
         return $result;
     }
 
+    function select_attendance_img_byRfid($rfid) {
+        $this->db->where('rfid',$rfid);
+        $qry=$this->db->get('image_tbl');
+        $result=$qry->result_array();
+        return $result;
+    }
+
     function select_attendance_imgggg(){
         $this->db->order_by('attendance_tbl.id','DESC');
         $this->db->select("attendance_tbl.*,image_tbl.*");

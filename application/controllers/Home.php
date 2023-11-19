@@ -164,21 +164,43 @@ class Home extends CI_Controller {
         if ( ! $this->session->userdata('logged_in'))
         { 
             redirect(base_url('login'));
-        }
-		else
-        {
+        } else {
             if($this->session->userdata('usertype')==1)
             {
-                $choice = $this->input->post('choice');
+                $usertype = "admin";
+                
+                if($this->input->post('include') == 1){
+                    $dateRecords = $this->Attendance_model->select_attendance();
+                $dataimg = $this->Attendance_model->select_attendance_img();
+                $fullname = "All Staff";
+                }else{
+                    $rfid=$this->input->post('rfid');
+                    $fulln = $this->Staff_model->select_staff_byRFID($rfid);
+                    $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
+                    $dataimg = $this->Attendance_model->select_attendance_img_byRfid($rfid);
+                    if($dateRecords != NULL){
+                        $fullname = $dateRecords[0]['fullname'];
+                    }else{
+                        $fullname = $fulln[0]['firstname']." ".$fulln[0]['midname']." ".$fulln[0]['lastname'];
+                    }
+                }
+                
+            }else{
+                $usertype = "staff";
+                // $data['include_name'] = 1;
+                $rfid=$this->session->userdata('rfid');
+                $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
+                $dataimg = $this->Attendance_model->select_attendance_img_byRfid($rfid);
+                $fullname = $this->session->userdata('staffname');
+            }
+                $choice = $this->input->post('choices');
                 $month = $this->input->post('monthdate');
                 $year = $this->input->post('yeardate');
                 $monthtext = $this->input->post('monthtext');
                 $data['date'] = array('date'=>$monthtext." ".$year);
-                $dateRecords = $this->Attendance_model->select_attendance();
-                $dataimg = $this->Attendance_model->select_attendance_img();
-
-                $this->load->view('admin/header');
-                
+                $data['include_name'] = $this->input->post('include');
+                $data['fullname'] = $fullname;
+                $this->load->view($usertype.'/header');
                 if($choice == 1){
                     $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
@@ -187,7 +209,6 @@ class Home extends CI_Controller {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
                     });
                     $this->load->view('system/print_all_dtr',$data);
-
                 }else if($choice == 2){
                     $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
                         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
@@ -199,21 +220,21 @@ class Home extends CI_Controller {
                     });
                     $this->load->view('system/printpiconly',$data);
                 }
-                $this->load->view('admin/footer');                
-            } else{
-                $rfid=$this->session->userdata('rfid');
-                $month = $this->input->post('monthdate');
-                $year = $this->input->post('yeardate');
-                $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
+                $this->load->view($usertype.'/footer');                
+            // } else{
+            //     $rfid=$this->session->userdata('rfid');
+            //     $month = $this->input->post('monthdate');
+            //     $year = $this->input->post('yeardate');
+            //     $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
 
-                $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
-                    return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
-                });
+            //     $data['content'] = array_filter($dateRecords, function ($records) use ($month,$year) {
+            //         return (date('n', strtotime($records['log_date'])) == $month && date('Y', strtotime($records['log_date'])) == $year);
+            //     });
 
-                $this->load->view('staff/header');
-                    $this->load->view('system/printdtronly',$data);
-                    $this->load->view('staff/footer');
-            }   
+            //     $this->load->view('staff/header');
+            //         $this->load->view('system/printdtronly',$data);
+            //         $this->load->view('staff/footer');
+            // }   
         }
     }
 

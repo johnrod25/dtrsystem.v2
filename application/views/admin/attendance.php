@@ -13,7 +13,6 @@
                     <div class="col-md-12 d-flex text-center justify-content-center">
                         <h4 class="mr-2 mt-1">Period:</h4>
                         <div class="form-group">
-                            <!-- <input type="date" name="start_date" class="form-control" id="start_date"> -->
                             <select name="monthdate" id="monthdate" class="form-control">
                               <option value="1">January</option>
                               <option value="2">February</option>
@@ -39,14 +38,20 @@
                               <option value="2020">2020</option>
                             </select>
                         </div>
+                        <h3 class="px-2"> : </h3>
                         <div class="form-group">
-                          <input type="hidden" name="monthtext" id="monthtext">
-                          <input type="hidden" name="choice" id="choice">
+                            <select name="choices" id="mychoice" class="form-control">
+                              <option value="1">DTR With PIC</option>
+                              <option value="2">DTR Only</option>
+                              <option value="3">PIC Only</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                          <button class="btn btn-success ml-2" onclick="openDtr(1)"><i class="fa fa-print" aria-hidden="true"></i>Print DTR with Pic</button>
-                          <button class="btn btn-success ml-2" onclick="openDtr(2)"><i class="fa fa-print" aria-hidden="true" ></i>Print DTR only</button>
-                          <button class="btn btn-success ml-2" onclick="openDtr(3)"><i class="fa fa-print" aria-hidden="true"></i>Print Pic only</button>
+                          <input type="hidden" name="monthtext" id="monthtext">
+                          <input type="hidden" name="include" id="include" value="1">
+                        </div>
+                        <div class="form-group">
+                          <button type="button" class="btn btn-info ml-2" onclick="openDtr()"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
                         </div>
                     </div>
                     </form>

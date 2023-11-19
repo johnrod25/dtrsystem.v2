@@ -6,14 +6,16 @@
 <div class="container mt-5">
         <div class="card">
             <div class="card-header d-flex justify-content-between bg-secondary">
-                <h5 class="card-title  text-center">Daily Timeeee Record</h5>
+                <h5 class="card-title  text-center">Daily Time Record</h5>
                 
             </div>
             <section class="card-body" id="dtr">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="text-center align-items-center">
+                            <?php if($include_name == 1): ?>
                             <th rowspan="2">Name</th>
+                            <?php endif; ?>
                             <th rowspan="2">Date</th>
                             <th colspan="2">AM</th>
                             <th colspan="2">PM</th>
@@ -33,7 +35,9 @@
                             <?php } ?>
                             <?php foreach($images as $img): ?>
                             <tr class="text-center">
+                                <?php if($include_name == 1): ?>
                                 <td><?= $img['fullname']; ?></td>
+                                <?php endif; ?>
                                 <td><?= $img['log_date']; ?></td>
                                 <td>
                                     <?php if($img['morning_in'] != NULL){ ?>
@@ -81,7 +85,11 @@
         //alert('dsdffsd');
         var printContents = document.getElementById(divName).innerHTML;
         document.body.innerHTML = '<h4 class="text-center text-success">DAILY TIME RECORD</h4>';
-        document.body.innerHTML += '<h5>Name: All Staff </h5>';
+        <?php if($include_name == 0){ ?>
+            document.body.innerHTML += '<h5>Name: <?= $fullname; ?> </h5>';
+        <?php }else{?>
+            document.body.innerHTML += '<h5>Name: All Staff </h5>';
+        <?php } ?>
         document.body.innerHTML += '<?php if(count($date)!=0){ ?>
                 <h5>For the Month of: <?= $date['date']; ?></h5><?php } ?>';
         // document.body.innerHTML += '<h5>For the Month of: October 2023</h5>';

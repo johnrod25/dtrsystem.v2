@@ -479,11 +479,11 @@ $(document).on("click", "#opendtr", function(e) {
     }
 });
 
-function openDtr(choice){
+function openDtr(){
   var month = document.getElementById('monthdate').value;
     var mymonth =document.getElementById('monthdate');
     var year = document.getElementById('yeardate').value;
-    document.getElementById('choice').value = choice;
+    // document.getElementById('choice').value = 1;
     document.getElementById('monthtext').value = mymonth.options[mymonth.selectedIndex].text;
     if(month == "" ||year == ""){
       errorToast('Set Date First.');

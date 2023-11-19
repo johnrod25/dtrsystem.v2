@@ -9,7 +9,7 @@
                 <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Manage Report</h3>
-                    <form role="form" id="form" action="<?php echo base_url(); ?>printmydtr" method="POST">
+                    <form role="form" id="form" action="<?php echo base_url(); ?>printall" method="POST">
                     <div class="col-md-12 d-flex text-center justify-content-center">
                         <h4 class="mr-2 mt-1">Period:</h4>
                         <div class="form-group">
@@ -39,7 +39,18 @@
                               <option value="2020">2020</option>
 
                             </select>
-                            <input type="hidden" name="monthtext" id="monthtext">
+                        </div>
+                        <h3 class="px-2"> : </h3>
+                        <div class="form-group">
+                            <select name="choices" id="mychoice" class="form-control">
+                              <option value="1">DTR With PIC</option>
+                              <option value="2">DTR Only</option>
+                              <option value="3">PIC Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                          <input type="hidden" name="monthtext" id="monthtext">
+                          <input type="hidden" name="include" id="include" value="0">
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="rfid" id="myrfid">
@@ -70,7 +81,7 @@
                             <td><?= $cnt['department_name']; ?></td>
                             <td><?= $cnt['log_date']; ?></td>
                             <td class="text-center ">
-                                <a data-toggle="tooltip" title="Print" class="btn btn-success btn-sm" id="opendtr" value="<?= $cnt['rfid']; ?>"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+                                <a data-toggle="tooltip" title="Print" class="btn btn-info btn-sm" id="opendtr" value="<?= $cnt['rfid']; ?>"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                             </td>
                         </tr>
                         <?php 

@@ -9,7 +9,7 @@
                 <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Manage Attendance</h3>
-                    <form role="form" id="form" action="<?php echo base_url(); ?>printmydtr" method="POST">
+                    <form role="form" id="form" action="<?php echo base_url(); ?>printall" method="POST">
                     <div class="col-md-12 d-flex text-center justify-content-center">
                         <h4 class="mr-2 mt-1">Period:</h4>
                         <div class="form-group">
@@ -29,6 +29,7 @@
                               <option value="12">Decemeber</option>
                             </select>
                             <input type="hidden" name="monthtext" id="monthtext">
+                            <input type="hidden" name="include" id="include" value="0">
                         </div>
                         <h3 class="px-2"> : </h3>
                         <div class="form-group">
@@ -41,11 +42,19 @@
 
                             </select>
                         </div>
+                        <h3 class="px-2"> : </h3>
+                        <div class="form-group">
+                            <select name="choices" id="mychoice" class="form-control">
+                              <option value="1">DTR With PIC</option>
+                              <option value="2">DTR Only</option>
+                              <option value="3">PIC Only</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <input type="hidden" name="rfid" value="<?= $this->session->userdata('rfid'); ?>" class="form-control" id="myrfid">
                         </div>
                         <div class="form-group">
-                          <button id="opendtr" class="btn btn-success ml-2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                          <button id="opendtr" class="btn btn-info ml-2"><i class="fa fa-eye" aria-hidden="true"></i> View</button>
                         </div>
                     </div>
                     </form>
@@ -75,10 +84,18 @@
                         <?php foreach($attendance as $cnt): ?>
                         <tr>
                             <td><?= $cnt['log_date']; ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['morning_in'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['morning_out'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['afternoon_in'])); ?></td>
-                            <td><?= date('h:i A', strtotime($cnt['afternoon_out'])); ?></td>
+                            <td><?php if($cnt['morning_in'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['morning_in']));
+                            } ?></td>
+                            <td><?php if($cnt['morning_out'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['morning_out']));
+                            } ?></td>
+                            <td><?php if($cnt['afternoon_in'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['afternoon_in']));
+                            } ?></td>
+                            <td><?php if($cnt['afternoon_out'] != NULL){ 
+                            echo date('h:i A', strtotime($cnt['afternoon_out']));
+                            } ?></td>
                             <td><?php 
                             $hours = (abs(strtotime($cnt['morning_out'])-strtotime($cnt['morning_in']))+ abs(strtotime($cnt['afternoon_out'])-strtotime($cnt['afternoon_in'])))/3600;
                             // Get the whole number part (hours)
