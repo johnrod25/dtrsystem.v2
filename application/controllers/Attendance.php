@@ -43,11 +43,14 @@ class Attendance extends CI_Controller {
             } else {
 				date_default_timezone_set('Asia/Manila');
 				//$timestamp = time();
-				//$timestamp = date();
+				$timestamp = time();
                 $id = $this->input->post('id');
 				$taptime = $this->input->post('taptime');
-				$time = new date("h:i:sa");
-				$date = new date("Y/m/d"); 
+				// $taptime = $this->input->post('taptime');
+				// $time = date("h:i:sa", $this->input->post('time'));
+				$date = date("Y/m/d"); 
+				$time = $this->input->post('time');
+				// $date = $this->input->post('date'); 
 				$attendance = $this->Attendance_model->select_attendance_byIDate($id, $date);
 				
 				$staff = $this->Staff_model->select_staff_byRFID($id);
@@ -62,14 +65,14 @@ class Attendance extends CI_Controller {
 
                 if($staff != NULL){
 					$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
-					if($attendance == NULL){
+					if($attendance == NULL || $attendance == ''){
 						$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$time, 'log_date'=>$date));
 						$this->Attendance_model->insert_image(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$filename, 'log_date'=>$date));
 						file_put_contents('./assets/dist/img/attendance/' . $filename, $imageData);
 
 						$data = array('response' => "success", 'message' => "Successfully Time In/Out", 'rfid'=> $id, 'fullname'=> $fullname);
 					}else{
-						if($attendance[0][$taptime] == NULL){
+						if($attendance[0][$taptime] == NULL || $attendance[0][$taptime] == ''){
 							$this->Attendance_model->update_attendance(array($taptime => $time), $id,$date);
 							$this->Attendance_model->update_image(array($taptime=>$filename), $id,$date);
 							file_put_contents('./assets/dist/img/attendance/' . $filename, $imageData);

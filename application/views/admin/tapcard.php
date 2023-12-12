@@ -182,7 +182,7 @@
     .then(permissionStatus => {
       if (permissionStatus.state === 'granted') {
         // Camera access is already granted
-        startCamera();
+        // startCamera();
       } else if (permissionStatus.state === 'prompt') {
         // Camera access hasn't been granted yet, prompt the user
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -296,6 +296,12 @@ inputField.addEventListener('input', () => {
 
         inputField.disabled = true;
 
+        const now = new Date();
+        const optionsDate = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        const formattedDate = now.toLocaleDateString(undefined, optionsDate);
+        const optionsTime = {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'};
+        const formattedTime = now.toLocaleTimeString(undefined, optionsTime);
+
         $.ajax({
         url: "<?php echo base_url(); ?>insert-attendance",
         type: "post",
@@ -303,6 +309,8 @@ inputField.addEventListener('input', () => {
         data: {
             id: id,
             taptime: taptime,
+            date: formattedDate,
+            time: formattedTime,
             imageData: imageDataURL
         },
         success: function(data) {
