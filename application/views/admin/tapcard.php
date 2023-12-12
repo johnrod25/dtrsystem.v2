@@ -177,6 +177,31 @@
   $(document).ready(function() {
     $('#example').DataTable();
     $('#attendanceModal').modal('show');
+
+    navigator.permissions.query({ name: 'camera' })
+    .then(permissionStatus => {
+      if (permissionStatus.state === 'granted') {
+        // Camera access is already granted
+        startCamera();
+      } else if (permissionStatus.state === 'prompt') {
+        // Camera access hasn't been granted yet, prompt the user
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(() => {
+            // Permission granted, start the camera
+            startCamera();
+          })
+          .catch(error => {
+            console.error('Error accessing the camera:', error);
+          });
+      } else {
+        // Permission denied or unavailable
+        console.log('Camera access denied or unavailable');
+      }
+    })
+    .catch(error => {
+      console.error('Error checking camera permission:', error);
+    });
+        
    } );
 
    function successToast(){

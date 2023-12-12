@@ -42,11 +42,12 @@ class Attendance extends CI_Controller {
                 $data = array('response' => "error", 'message' => validation_errors());
             } else {
 				date_default_timezone_set('Asia/Manila');
-				$timestamp = time();
+				//$timestamp = time();
+				//$timestamp = date();
                 $id = $this->input->post('id');
 				$taptime = $this->input->post('taptime');
-				$time = date('H:i:s', $timestamp);
-				$date = date('Y-m-d', $timestamp); 
+				$time = new date("h:i:sa");
+				$date = new date("Y/m/d"); 
 				$attendance = $this->Attendance_model->select_attendance_byIDate($id, $date);
 				
 				$staff = $this->Staff_model->select_staff_byRFID($id);
