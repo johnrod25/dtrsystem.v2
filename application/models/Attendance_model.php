@@ -91,6 +91,20 @@ class Attendance_model extends CI_Model {
             return $result;
     }
 
+    function select_attendance_by_editID($id) {
+        $this->db->order_by('id','DESC');
+        $this->db->where('id',$id);
+        $qry=$this->db->get('attendance_tbl');
+            $result=$qry->result_array();
+            return $result;
+    }
+
+    function update_my_attendance($data,$id) {
+        $this->db->where('id', $id);
+        return $this->db->update('attendance_tbl',$data);
+        $this->db->affected_rows();
+    }
+
     function select_attendance_byIDate($id,$date) {
         $this->db->order_by('id','DESC');
         $this->db->where('rfid',$id);

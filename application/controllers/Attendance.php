@@ -33,6 +33,52 @@ class Attendance extends CI_Controller {
 		}
     }
 
+	public function edit_all_attd()
+    {
+		if ( ! $this->session->userdata('logged_in')) { 
+            redirect(base_url('login'));
+        } else {
+            if($this->session->userdata('usertype')==1) {
+				$data['attendance']=$this->Attendance_model->select_attendance();
+				$data['fullname']=$this->Schedule_model->select_fullname();
+				$this->load->view('admin/header');
+				$this->load->view('admin/edit_attendance',$data);
+				$this->load->view('admin/footer');
+			}
+		}
+    }
+
+	public function edit_attd()
+	{
+		if ($this->input->is_ajax_request()) {
+			$id = $this->input->post('id');
+			if ($post = $this->Attendance_model->select_attendance_by_editID($id)) {
+				$data = array('response' => "success", 'post' => $post);
+			} else {
+				$data = array('response' => "error", 'message' => "failed");
+			}
+			echo json_encode($data);
+		}
+	}
+
+	public function update_attendance() {
+		if ($this->input->is_ajax_request()) {
+			$id = $this->input->post('id');
+			$morning_in = ($this->input->post('morning_in') == '' ? NULL : $this->input->post('morning_in'));
+			$morning_out = ($this->input->post('morning_out') == '' ? NULL : $this->input->post('morning_out'));
+			$afternoon_in = ($this->input->post('afternoon_in') == '' ? NULL : $this->input->post('afternoon_in'));
+			$afternoon_out = ($this->input->post('afternoon_out') == '' ? NULL : $this->input->post('afternoon_out'));
+			if ($this->Attendance_model->update_my_attendance(array('morning_in'=>$morning_in, 'morning_out'=>$morning_out, 'afternoon_in'=>$afternoon_in, 'afternoon_out'=>$afternoon_out ), $id)) {
+				$data = array('response' => "success", 'message' => "Attendance updated successfully");
+			} else {
+				$data = array('response' => "error", 'message' => "Failed");
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
 	public function insert()
 	{
         if ($this->input->is_ajax_request()) {

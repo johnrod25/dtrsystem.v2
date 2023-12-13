@@ -87,6 +87,9 @@ $route['delete-schedule'] = 'schedule/delete';
 
 // ATTENDANCE ROUTE
 $route['attendance'] = 'attendance/index';
+$route['edit-all-attendance'] = 'attendance/edit_all_attd';
+$route['edit-attd-schedule'] = 'attendance/edit_attd';
+$route['update-my-attendance'] = 'attendance/update_attendance';
 $route['insert-attendance'] = 'attendance/insert';
 $route['edit-attendance'] = 'attendance/edit';
 $route['update-attendance'] = 'attendance/update';

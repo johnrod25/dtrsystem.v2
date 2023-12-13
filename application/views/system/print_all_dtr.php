@@ -41,32 +41,39 @@
                             <?php } ?> 
                             <td><?= $cnt['log_date']; ?></td>
                             <td>
-                                <?php if($cnt['morning_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                <?php if($cnt['morning_in'] != NULL){ 
+                                    $img_morning_in = ($img['morning_in'] == '' ? 'default.png':$img['morning_in']);
+                                ?>
+                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img_morning_in; ?>" alt="" class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['morning_in']));
                                 } ?>
                             </td>
                             <td>
-                            <?php if($cnt['morning_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['morning_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                            <?php if($cnt['morning_out'] != NULL){ 
+                                $img_morning_out = ($img['morning_out'] == '' ? 'default.png':$img['morning_out']); 
+                            ?>
+                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img_morning_out; ?>" alt="" class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['morning_out']));
                                 } ?>
                             </td>
                             <td>
-                                <?php if($cnt['afternoon_in'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_in']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                <?php if($cnt['afternoon_in'] != NULL){ 
+                                    $img_afternoon_in = ($img['afternoon_in'] == '' ? 'default.png':$img['afternoon_in']); 
+                                ?>
+                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img_afternoon_in; ?>" alt="" class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['afternoon_in']));
                                 } ?>
                             </td>
                             <td>
-                                <?php if($cnt['afternoon_out'] != NULL){ ?>
-                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
+                                <?php if($cnt['afternoon_out'] != NULL){ 
+                                    $img_afternoon_out = ($img['afternoon_out'] == '' ? 'default.png':$img['afternoon_out']);
+                                ?>
+                                <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img_afternoon_out; ?>" alt="" class="rounded mx-auto d-block" style="height:50px;">
                                 <?= date('h:i A', strtotime($cnt['afternoon_out']));
                                 } ?>
                             </td>
                             <td><?php 
-                            $hours = (abs(strtotime($cnt['morning_out'])-strtotime($cnt['morning_in']))+ abs(strtotime($cnt['afternoon_out'])-strtotime($cnt['afternoon_in'])))/3600;
-                            // Get the whole number part (hours)
+                            $hours = (abs(strtotime($cnt['morning_out'] ?? 0)-strtotime($cnt['morning_in'] ?? 0))+ abs(strtotime($cnt['afternoon_out'] ?? 0)-strtotime($cnt['afternoon_in'] ?? 0)))/3600;
                             $wholeHours = floor($hours);                          
                             // Get the decimal part (minutes)
                             $decimalMinutes = ($hours - $wholeHours) * 60;                          

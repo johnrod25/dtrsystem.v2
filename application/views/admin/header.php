@@ -113,11 +113,32 @@
                         <p>Schedule</p>
                     </a>
                 </li> -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="<?= base_url(); ?>attendance" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>Attendance</p>
                     </a>
+                </li> -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>Attendance<i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url(); ?>attendance" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Manage Attendance</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url(); ?>edit-all-attendance" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Edit Attendance</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url(); ?>report" class="nav-link">
