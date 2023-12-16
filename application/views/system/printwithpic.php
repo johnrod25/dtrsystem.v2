@@ -18,6 +18,7 @@
                             <th colspan="2">AM</th>
                             <th colspan="2">PM</th>
                             <th rowspan="2">Total Hours</th>
+                            <th rowspan="2">Remarks</th>
                         </tr>
                         <tr class="text-center">
                             <th>Time In</th>
@@ -75,6 +76,7 @@
                                 echo $formattedTime;
                             }
                             ?> hours</td>
+                            <td></td>
                         </tr>
                         <?php },$content, $images); ?>
                     <?php endif; ?>

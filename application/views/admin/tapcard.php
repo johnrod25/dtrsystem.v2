@@ -114,7 +114,7 @@
 </div>
 
 
-<div class="modal fade" id="attendanceModal">
+<div class="modal fade" id="attendanceModal" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

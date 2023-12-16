@@ -19,6 +19,7 @@
                             <th rowspan="2">Date</th>
                             <th colspan="2">AM</th>
                             <th colspan="2">PM</th>
+                            <th rowspan="2">Remarks</th>
                             <!-- <th rowspan="2">Total Hours</th> -->
                         </tr>
                         <tr class="text-center">
@@ -59,6 +60,7 @@
                                     <img src="<?=base_url(); ?>/assets/dist/img/attendance/<?= $img['afternoon_out']; ?>" alt=""class="rounded mx-auto d-block" style="height:50px;">
                                     <?php } ?>
                                 </td>
+                                <td></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
