@@ -111,7 +111,7 @@ class Attendance extends CI_Controller {
 
                 if($staff != NULL){
 					$fullname = $staff[0]['firstname']." ".$staff[0]['midname']." ".$staff[0]['lastname'];
-					if($attendance == NULL || $attendance == ''){
+					if($attendance == NULL || $attendance == '' || count($attendance) == 0){
 						$this->Attendance_model->insert_attendance(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$time, 'log_date'=>$date));
 						$this->Attendance_model->insert_image(array('rfid'=>$id, 'fullname'=>$fullname, $taptime=>$filename, 'log_date'=>$date));
 						file_put_contents('./assets/dist/img/attendance/' . $filename, $imageData);

@@ -84,7 +84,6 @@
 
 <script>
     function printDiv(divName){
-        //alert('dsdffsd');
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = '<h4 class="text-center text-success">DAILY TIME RECORD</h4>';

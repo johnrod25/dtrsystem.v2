@@ -87,7 +87,9 @@
                                 echo $formattedTime;
                             }
                             ?> hours</td>
-                            <td></td>
+                            <td>
+                                <input type="text" name="remarks" class="form-control myremarks">
+                            </td>
                         </tr>
                         <?php },$content, $images); ?>
                     <?php endif; ?>
@@ -111,7 +113,13 @@
 
 <script>
     function printDiv(divName){
-        //alert('dsdffsd');
+        var inputValues = document.querySelectorAll('.myremarks');
+        inputValues.forEach(function(input) {
+            var para = document.createElement('p');
+            para.textContent = input.value;
+            input.parentElement.appendChild(para);
+            input.style.display = 'none';
+        });
         var printContents = document.getElementById(divName).innerHTML;
         document.body.innerHTML = '<h4 class="text-center text-success">DAILY TIME RECORD</h4>';
         <?php if($include_name == 0){ ?>
