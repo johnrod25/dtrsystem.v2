@@ -113,13 +113,7 @@
 
 <script>
     function printDiv(divName){
-        var inputValues = document.querySelectorAll('.myremarks');
-        inputValues.forEach(function(input) {
-            var para = document.createElement('p');
-            para.textContent = input.value;
-            input.parentElement.appendChild(para);
-            input.style.display = 'none';
-        });
+        //alert('dsdffsd');
         var printContents = document.getElementById(divName).innerHTML;
         document.body.innerHTML = '<h4 class="text-center text-success">DAILY TIME RECORD</h4>';
         <?php if($include_name == 0){ ?>
