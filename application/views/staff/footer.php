@@ -97,6 +97,27 @@
           "hideMethod": "fadeOut"
       }
   }
+
+  function successToast(message){
+    Command: toastr["success"](message)
+      toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+      }
+  }
   
 function notif(data){
   localStorage.setItem("Notif",JSON.stringify(data))
@@ -126,6 +147,36 @@ $(document).on("click", "#opendtratd", function(e) {
       errorToast('Set Date First.');
     }else{
       document.getElementById('form').submit();
+    }
+});
+
+$(document).on("click", "#change-password", function(e) {
+    e.preventDefault();
+    var current_password = $("#currentpass").val();
+    var new_password = $("#newpass").val();
+    var confirm_password = $("#confirmpass").val();
+    
+    if (!(new_password == confirm_password)) {
+      errorToast("Password not match.");
+    } else {
+        $.ajax({
+            url: "<?php echo base_url(); ?>change-password",
+            type: "post",
+            dataType: "json",
+            data: {
+                newpass: new_password,
+                currentpass: current_password,
+                confirmpass: confirm_password
+            },
+            success: function(data) {
+                if (data.response === 'success') {
+                    $('#modal-profile').modal('hide');
+                    successToast(data.message);
+                } else {
+                  errorToast(data.message);
+                }
+            }
+        });
     }
 });
 

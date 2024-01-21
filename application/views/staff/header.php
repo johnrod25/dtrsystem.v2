@@ -49,8 +49,8 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
-                <a href="<?= base_url(); ?>/logout" class="btn btn-default btn-flat float-right">Sign out</a>
+                <button class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-profile">Change Passsword</button>
+                <a href="<?= base_url(); ?>/logout" class="btn btn-danger btn-flat float-right">Sign out</a>
               </li>
             </ul>
         </li>
@@ -114,3 +114,48 @@
     </div>
 <!-- /.sidebar -->
 </aside>
+
+
+<div class="modal fade" id="modal-profile">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Change Password</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3 needs-validation px-3" id="profile=form">
+                <!-- First Row -->
+                <div class="col-lg-12">
+                    <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="text" name="currpass" class="form-control" placeholder="Current Password" id="currentpass">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                    <label>New Password</label>
+                    <input type="text" name="newpass" class="form-control" placeholder="New Password" id="newpass">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="text" name="confirmpass" class="form-control" placeholder="Confirm Password" id="confirmpass">
+                    </div>
+                </div>
+                
+                </form>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="change-password">Submit</button>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

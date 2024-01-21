@@ -118,9 +118,7 @@
         <?php } ?>
         document.body.innerHTML += '<?php if(count($date)!=0){ ?> <h5>For the Month of: <?= $date['date']; ?></h5><?php } ?>';
         document.body.innerHTML += printContents;
-
         window.print();
-
         document.body.innerHTML = originalContents;
 
     }

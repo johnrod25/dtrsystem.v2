@@ -70,6 +70,27 @@ class Home extends CI_Controller {
         $this->load->view('admin/footer');
     }
 
+    function change_password(){
+        if ($this->input->is_ajax_request()) {
+            $new_password = $this->input->post('newpass');
+            $current_password = $this->input->post('currentpass');
+            $rfid = $this->session->userdata('rfid');
+            $this->form_validation->set_rules('newpass', 'New Password', 'required');
+            $this->form_validation->set_rules('currentpass', 'Current Password', 'required');
+            $this->form_validation->set_rules('confirmpass', 'Confirm Password', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+                if ($this->Home_model->update_password($rfid, $new_password, $current_password)) {
+                    $data = array('response' => "success","message" => "Password updated successfully.");
+                } else {
+                    $data = array('response' => "error", "message" => "failed to change your password, make sure you entered correct password.");
+                }
+            }
+            echo json_encode($data);
+        }
+    }
+
 	function login()
     {
         $un=$this->input->post('username');

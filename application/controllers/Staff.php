@@ -55,11 +55,15 @@ class Staff extends CI_Controller {
 				$dob = $this->input->post('dob');
 				$email = $this->input->post('email');
 				$password = $lastname.$firstname[0].$midname[0].date('Y', strtotime($dob));
-				if ($this->Staff_model->insert_staff($ajax_data)) {
-					$this->Home_model->insert_login(array('rfid'=>$rfid, 'username'=>$email, 'password'=>$password, 'usertype'=>2, 'status'=>1));
-					$data = array('response' => "success", 'message' => "Data added successfully");
-				} else {
-					$data = array('response' => "error", 'message' => "Failed");
+				if($this->Staff_model->insert_staff_check_rfid($rfid)){
+					$data = array('response' => "error", 'message' => "RFID already taken.");
+				}else{
+					if ($this->Staff_model->insert_staff($ajax_data)) {
+						$this->Home_model->insert_login(array('rfid'=>$rfid, 'username'=>$email, 'password'=>$password, 'usertype'=>2, 'status'=>1));
+						$data = array('response' => "success", 'message' => "Data added successfully");
+					} else {
+						$data = array('response' => "error", 'message' => "Failed");
+					}
 				}
 			}
 			echo json_encode($data);
@@ -140,6 +144,15 @@ class Staff extends CI_Controller {
 			echo json_encode($data);
 		}
 	}
+
+	public function profile()
+    {
+        $data['content']=$this->Staff_model->select_staff();
+        $data['department']=$this->Staff_model->select_departments();
+        $this->load->view('staff/header');
+        $this->load->view('staff/profile',$data);
+        $this->load->view('staff/footer');
+    }
 
 
 }

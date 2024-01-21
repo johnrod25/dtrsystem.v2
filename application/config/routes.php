@@ -58,6 +58,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'home/login_page';
 $route['loginvalid'] = 'home/login';
 $route['logout'] = 'home/logout';
+$route['change-password'] = 'home/change_password';
 
 // DASHBOARD ROUTE
 //$route['default_controller'] = 'admin/index';

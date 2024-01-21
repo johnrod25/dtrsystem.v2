@@ -21,6 +21,19 @@ class Staff_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function insert_staff_check_rfid($rfid){
+        $this->db->where('rfid', $rfid);
+        $this->db->select("*");
+        $this->db->from("staff_tbl");
+        $qry=$this->db->get();
+        if($qry->num_rows()>0)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function update_staff($data, $id)
     {
         $this->db->where('id', $id);

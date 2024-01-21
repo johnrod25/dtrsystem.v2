@@ -37,4 +37,17 @@ class Home_model extends CI_Model {
         $this->db->affected_rows();
     }
 
+    function update_password($rfid, $new_password, $current_password){
+        $this->db->set('password', $new_password);
+        $this->db->where('rfid', $rfid);
+        $this->db->where('password', $current_password);
+        $this->db->update('login_tbl');
+        if($this->db->affected_rows() > 0){
+            return true; 
+          }else{
+            return false; 
+          }
+
+    }
+
 }
