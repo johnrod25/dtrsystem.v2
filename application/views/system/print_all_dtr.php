@@ -20,7 +20,9 @@
                             <th colspan="2">AM</th>
                             <th colspan="2">PM</th>
                             <th rowspan="2">Total Hours</th>
+                            <?php if($_SESSION['usertype' == 2]){ ?>
                             <th rowspan="2">Remarks</th>
+                            <?php } ?>
                         </tr>
                         <tr class="text-center">
                             <th>Time In</th>
@@ -87,9 +89,12 @@
                                 echo $formattedTime;
                             }
                             ?> hours</td>
+                            <?php if($_SESSION['usertype' == 2]){ ?>
                             <td>
+                                <!-- if usertype = 2 show input remark  -->
                                 <input type="text" name="remarks" class="form-control myremarks">
                             </td>
+                            <?php } ?>
                         </tr>
                         <?php },$content, $images); ?>
                     <?php endif; ?>
