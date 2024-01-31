@@ -439,7 +439,7 @@ $(document).on("click", "#update-schedule", function(e) {
 function view_print_dtr(rfid, fullname){
     var start_date =  $("#start_date").val();
     var end_date =  $("#end_date").val();
-    if (start_date == "" && end_date == "") {
+    if (start_date == "" || end_date == "") {
         alert("Set Date First.");
     } else { 
       document.getElementById('include').value = rfid == '1' ? '1' :'0';
