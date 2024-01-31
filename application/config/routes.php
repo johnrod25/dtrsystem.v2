@@ -101,7 +101,7 @@ $route['report'] = 'report/index';
 $route['print-dtr/(:num)/(:num)'] = 'home/printdtr/$1/$2';
 $route['printmydtr'] = 'home/printmydtr';
 $route['printall'] = 'home/printalldtr';
-// $route['printall/(:num)'] = 'home/printalldtr/$1';
+$route['print-report'] = 'home/printalldtr_old';
 
 // TRYYY
 // $route['fetch'] = 'staff/fetch';

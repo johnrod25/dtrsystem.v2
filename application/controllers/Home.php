@@ -293,24 +293,43 @@ class Home extends CI_Controller {
         {
             if($this->session->userdata('usertype')==1)
             {
-                $start_date = $this->input->post('start_date');
-                $end_date = $this->input->post('end_date');
-                $data['content'] = $this->Attendance_model->select_attendance_byAll($start_date,$end_date);
-                //print_r($data);
-                $this->load->view('admin/header');
-                $this->load->view('system/print_all_dtr',$data);
-                $this->load->view('admin/footer');                
+                $usertype = "admin";
             }
             else{
-                $rfid=$this->session->userdata('rfid');
-                $start_date = $this->input->post('start_date');
-                $end_date = $this->input->post('end_date');
-                $data['content'] = $this->Attendance_model->select_attendance_byRfid($rfid,$start_date,$end_date);
-                //print_r($data);
-                $this->load->view('staff/header');
-                $this->load->view('system/print_all_dtr',$data);
-                $this->load->view('staff/footer');
+                $usertype = "staff";
             }   
+
+            $rfid=$this->input->post('rfid');
+            $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
+            $dataimg = $this->Attendance_model->select_attendance_img_byRfid($rfid);
+            $choice = $this->input->post('choices');
+            $start_date = $this->input->post('start_date');
+            $end_date = $this->input->post('end_date');
+            // $monthtext = $this->input->post('monthtext');
+            $data['date'] = array('date'=>$start_date." : ".$end_date);
+            $data['include_name'] = $this->input->post('include');
+            $data['fullname'] = $this->input->post('fullname');
+            $this->load->view($usertype.'/header');
+            if($choice == 1){
+                $data['content'] = array_filter($dateRecords, function ($records) use ($start_date,$end_date) {
+                    return (date('Y-m-d', strtotime($records['log_date'])) >= $start_date && date('Y-m-d', strtotime($records['log_date'])) <= $end_date);
+                });
+                $data['images'] = array_filter($dataimg, function ($records) use ($start_date,$end_date) {
+                    return (date('Y-m-d', strtotime($records['log_date'])) >= $start_date && date('Y-m-d', strtotime($records['log_date'])) <= $end_date);
+                });
+                $this->load->view('system/print_all_dtr',$data);
+            }else if($choice == 2){
+                $data['content'] = array_filter($dateRecords, function ($records) use ($start_date,$end_date) {
+                    return (date('Y-m-d', strtotime($records['log_date'])) >= $start_date && date('Y-m-d', strtotime($records['log_date'])) <= $end_date);
+                });
+                $this->load->view('system/printdtronly',$data);
+            }else if($choice == 3){
+                $data['images'] = array_filter($dataimg, function ($records) use ($start_date,$end_date) {
+                    return (date('Y-m-d', strtotime($records['log_date'])) >= $start_date && date('Y-m-d', strtotime($records['log_date'])) <= $end_date);
+                });
+                $this->load->view('system/printpiconly',$data);
+            }
+            $this->load->view($usertype.'/footer');  
         }
     }
 

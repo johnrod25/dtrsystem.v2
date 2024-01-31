@@ -9,15 +9,37 @@
                 <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Manage Report</h3>
-                    <form role="form" id="form" action="<?php echo base_url(); ?>print-report" method="POST">
+                    <form role="form" id="form" action="<?php echo base_url(); ?>printall" method="POST">
                     <div class="col-md-12 d-flex text-center justify-content-center">
                         <h4 class="mr-2 mt-1">Period:</h4>
                         <div class="form-group">
-                            <input type="date" name="start_date" class="form-control" id="start_date">
+                            <!-- <input type="date" name="start_date" class="form-control" id="start_date"> -->
+                            <select name="monthdate" id="monthdate" class="form-control">
+                              <option value="1">January</option>
+                              <option value="2">February</option>
+                              <option value="3">March</option>
+                              <option value="4">April</option>
+                              <option value="5">May</option>
+                              <option value="6">June</option>
+                              <option value="7">July</option>
+                              <option value="8">August</option>
+                              <option value="9">September</option>
+                              <option value="10">October</option>
+                              <option value="11">November</option>
+                              <option value="12">Decemeber</option>
+                            </select>
                         </div>
                         <h3 class="px-2"> : </h3>
                         <div class="form-group">
-                            <input type="date" name="end_date" class="form-control" id="end_date">
+                            <!-- <input type="date" name="end_date" class="form-control" id="end_date"> -->
+                            <select name="yeardate" id="yeardate" class="form-control">
+                              <option value="2024">2024</option>
+                              <option value="2023">2023</option>
+                              <option value="2022">2022</option>
+                              <option value="2021">2021</option>
+                              <option value="2020">2020</option>
+
+                            </select>
                         </div>
                         <h3 class="px-2"> : </h3>
                         <div class="form-group">
@@ -32,8 +54,7 @@
                           <input type="hidden" name="include" id="include" value="0">
                         </div>
                         <div class="form-group">
-                          <input type="hidden" name="rfid" id="myrfid">
-                          <input type="hidden" name="fullname" id="myfullname">
+                            <input type="hidden" name="rfid" id="myrfid">
                         </div>
                     </div>
                     </form>
@@ -57,11 +78,11 @@
                         ?>
                         <tr>
                             <td><?= $cnt['rfid']; ?></td>
-                            <td><?= $fullname = $cnt['firstname'].' '.$cnt['midname'].' '.$cnt['lastname']; ?></td>
+                            <td><?= $cnt['firstname'].' '.$cnt['midname'].' '.$cnt['lastname']; ?></td>
                             <td><?= $cnt['department_name']; ?></td>
                             <td><?= $cnt['log_date']; ?></td>
                             <td class="text-center ">
-                                <a data-toggle="tooltip" title="Print" class="btn btn-info btn-sm" id="print-dtr" value="<?= $cnt['rfid']; ?>" onclick="view_print_dtr('<?= $cnt['rfid']; ?>','<?= $fullname; ?>')"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                <a data-toggle="tooltip" title="Print" class="btn btn-info btn-sm" id="opendtr" value="<?= $cnt['rfid']; ?>"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                             </td>
                         </tr>
                         <?php 

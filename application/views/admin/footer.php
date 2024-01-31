@@ -436,6 +436,17 @@ $(document).on("click", "#update-schedule", function(e) {
 });
 
 
+function view_print_dtr(rfid, fullname){
+    var start_date =  $("#start_date").val();
+    var end_date =  $("#end_date").val();
+    if (start_date == "" && end_date == "") {
+        alert("Set Date First.");
+    } else {      
+      document.getElementById('myrfid').value=rfid;
+      document.getElementById('myfullname').value=fullname;
+      document.getElementById('form').submit();
+    }
+}
 $(document).on("click", "#print-dtr", function(e) {
     e.preventDefault();
     var rfid = $(this).attr("value");
@@ -444,23 +455,25 @@ $(document).on("click", "#print-dtr", function(e) {
     if (start_date == "" && end_date == "") {
         alert("Set Date First.");
     } else {
-        $.ajax({
-            url: "<?php echo base_url(); ?>printmydtr",
-            type: "post",
-            dataType: "json",
-            data: {
-                rfid:rfid,
-                start_date:start_date,
-                end_date:end_date
-            },
-            success: function(data) {
-                if (data.response === 'success') {
-                  alert('PRinttttt');
-                } else {
-                  errorToast(data.message);
-                }
-            }
-        });
+      document.getElementById('myrfid').value=rfid;
+      document.getElementById('form').submit();
+        // $.ajax({
+        //     url: "printmydtr-old",
+        //     type: "post",
+        //     dataType: "json",
+        //     data: {
+        //         rfid:rfid,
+        //         start_date:start_date,
+        //         end_date:end_date
+        //     },
+        //     success: function(data) {
+        //         if (data.response === 'success') {
+        //           alert('PRinttttt');
+        //         } else {
+        //           errorToast(data.message);
+        //         }
+        //     }
+        // });
     }
 });
 
