@@ -294,21 +294,27 @@ class Home extends CI_Controller {
             if($this->session->userdata('usertype')==1)
             {
                 $usertype = "admin";
+                if($this->input->post('include') == 1){
+                    $dateRecords = $this->Attendance_model->select_attendance();
+                    $dataimg = $this->Attendance_model->select_attendance_img();
+                    $fullname = "All Staff";
+                }else{
+                    $rfid=$this->input->post('rfid');
+                    $fulln = $this->Staff_model->select_staff_byRFID($rfid);
+                    $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
+                    $dataimg = $this->Attendance_model->select_attendance_img_byRfid($rfid);
+                    $fullname = $this->input->post('fullname');
+                }
             }
             else{
                 $usertype = "staff";
             }   
-
-            $rfid=$this->input->post('rfid');
-            $dateRecords = $this->Attendance_model->select_attendance_byID($rfid);
-            $dataimg = $this->Attendance_model->select_attendance_img_byRfid($rfid);
             $choice = $this->input->post('choices');
             $start_date = $this->input->post('start_date');
             $end_date = $this->input->post('end_date');
-            // $monthtext = $this->input->post('monthtext');
             $data['date'] = array('date'=>$start_date." : ".$end_date);
             $data['include_name'] = $this->input->post('include');
-            $data['fullname'] = $this->input->post('fullname');
+            $data['fullname'] = $fullname;
             $this->load->view($usertype.'/header');
             if($choice == 1){
                 $data['content'] = array_filter($dateRecords, function ($records) use ($start_date,$end_date) {

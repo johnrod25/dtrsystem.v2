@@ -441,7 +441,8 @@ function view_print_dtr(rfid, fullname){
     var end_date =  $("#end_date").val();
     if (start_date == "" && end_date == "") {
         alert("Set Date First.");
-    } else {      
+    } else { 
+      document.getElementById('include').value = rfid == '1' ? '1' :'0';
       document.getElementById('myrfid').value=rfid;
       document.getElementById('myfullname').value=fullname;
       document.getElementById('form').submit();

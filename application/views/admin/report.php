@@ -35,7 +35,11 @@
                           <input type="hidden" name="rfid" id="myrfid">
                           <input type="hidden" name="fullname" id="myfullname">
                         </div>
+                        <div class="form-group">
+                        <input type="button" class="btn btn-primary ml-3" value="View All" onclick="view_print_dtr('1','1')">
+                        </div>
                     </div>
+                    
                     </form>
                 </div>
                 <hr class="hr">
