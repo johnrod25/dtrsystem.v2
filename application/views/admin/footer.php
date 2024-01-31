@@ -518,6 +518,36 @@ $(document).on("click", "#opendtratd", function(e) {
       document.getElementById('form').submit();
     }
 });
+
+$(document).on("click", "#change-password", function(e) {
+    e.preventDefault();
+    var current_password = $("#currentpass").val();
+    var new_password = $("#newpass").val();
+    var confirm_password = $("#confirmpass").val();
+    
+    if (!(new_password == confirm_password)) {
+      errorToast("Password not match.");
+    } else {
+        $.ajax({
+            url: "<?php echo base_url(); ?>change-password",
+            type: "post",
+            dataType: "json",
+            data: {
+                newpass: new_password,
+                currentpass: current_password,
+                confirmpass: confirm_password
+            },
+            success: function(data) {
+                if (data.response === 'success') {
+                    $('#modal-profile').modal('hide');
+                    successToast(data.message);
+                } else {
+                  errorToast(data.message);
+                }
+            }
+        });
+    }
+});
 </script>
 </body>
 </html>
